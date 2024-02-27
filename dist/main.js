@@ -116,7 +116,17 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style/main.css */ \"./src/style/main.css\");\n\n\n\n\nconsole.log(\"Hello World\");\n\n//# sourceURL=webpack://odin-todo/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_main_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style/main.css */ \"./src/style/main.css\");\n/* harmony import */ var _logic_inc_controller_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./logic/inc-controller.js */ \"./src/logic/inc-controller.js\");\n\n\n\n\n\nconsole.log(\"Hello World\");\n(0,_logic_inc_controller_js__WEBPACK_IMPORTED_MODULE_1__.loadController)();\n\n//# sourceURL=webpack://odin-todo/./src/index.js?");
+
+/***/ }),
+
+/***/ "./src/logic/inc-controller.js":
+/*!*************************************!*\
+  !*** ./src/logic/inc-controller.js ***!
+  \*************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   loadController: () => (/* binding */ loadController)\n/* harmony export */ });\nfunction loadController() {\n    console.log(\"todo list controller\");\n}\n\n\n\n//# sourceURL=webpack://odin-todo/./src/logic/inc-controller.js?");
 
 /***/ })
 
