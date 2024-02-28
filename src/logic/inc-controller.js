@@ -1,6 +1,6 @@
 import { loadSnapshot, exportSnapshot } from "./inc-loadexp.js";
-import { createProject } from "./inc-project.js";
-import { createTask } from "./inc-task.js";
+import { loadProjects } from "./inc-project.js";
+import { loadTasks } from "./inc-task.js";
 
 
 import { renderToDOM } from "./inc-render.js";
@@ -8,8 +8,8 @@ import { renderToDOM } from "./inc-render.js";
 function loadController() {
     console.log("Controller online.");
     loadSnapshot();
-    createProject();
-    createTask();
+    loadProjects();
+    loadTasks();
 
     renderToDOM("Projects");
 }
