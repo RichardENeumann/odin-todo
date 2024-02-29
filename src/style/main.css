@@ -14,16 +14,15 @@ body {
 }
 header {
     display: flex;
-    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
     text-align: center;
-    padding: 16px;
+    padding: 12px;
     background-color: darkcyan;
 }
 /* The Logo */
 header h1 {
-    align-self: flex-start;
-    padding-left: 48px;
-    padding-bottom: 8px;
     font-weight: bolder;
     font-size: 2rem;
     font-style: italic;
@@ -35,6 +34,7 @@ header h1 small {
     font-size: .9rem;
 }
 nav {
+    flex: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -43,19 +43,9 @@ nav {
     background-color: darkgrey;
   
 }
-#addTask {
-   position: relative;
-   top: -41px;
-}
 nav button {
     padding: 4px;
     border-radius: 4px;
-    font-size: 1rem;
-}
-#addTask button {
-    width: 36px;
-    height: 36px;
-    border-radius: 36px;
     font-size: 1rem;
 }
 main {
@@ -67,8 +57,9 @@ main {
 }
 footer {
     margin-top: auto;
-    padding: 4px;
-    text-align: center;
+    padding: 4px 24px 4px 4px;
+    
+    text-align: right;
     font-style: italic;
     background-color: darkcyan;
 }
