@@ -2,7 +2,12 @@
 
 import "./style/main.css";
 
-import { loadController, renderToDOM, loadSnapshot, exportSnapshot } from "./logic/inc-controller.js";
+import { 
+    loadController, 
+    renderToDOM, 
+    loadSnapshot, 
+    exportSnapshot 
+} from "./logic/inc-controller.js";
 
 
 const display = document.getElementById("content");
