@@ -16,6 +16,8 @@ const btProjects = document.getElementById("btProjects");
 const btTasks = document.getElementById("btTasks");
 const btImport = document.getElementById("btImport");
 const btExport = document.getElementById("btExport");
+const btAbout = document.getElementById("btAbout");
+const dlgAbout = document.getElementById("about");
 
 btProjects.addEventListener("click", () => {
     renderToDOM("Projects");
@@ -28,6 +30,9 @@ btImport.addEventListener("click", () => {
 });
 btExport.addEventListener("click", () => {
     exportSnapshot();
+});
+btAbout.addEventListener("click", () => {
+    alert("tada! v0.0.1");
 });
 
 loadController();
