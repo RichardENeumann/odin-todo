@@ -30,6 +30,10 @@ header h1 {
     color: black;
     font-family: 'Times New Roman', Times, serif;
 }
+header h1 small {
+    color: white;
+    font-size: .9rem;
+}
 nav {
     display: flex;
     justify-content: space-between;
@@ -38,6 +42,10 @@ nav {
     border: 1px solid black;
     background-color: darkgrey;
   
+}
+#addTask {
+   position: relative;
+   top: -41px;
 }
 nav button {
     padding: 4px;
