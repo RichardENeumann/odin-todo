@@ -1,5 +1,5 @@
 function loadSnapshot(source = "localStorage") {
-    console.log("Import from JSON file" + source);
+    console.log("Import from ", source);
 }
 
 function exportSnapshot() {

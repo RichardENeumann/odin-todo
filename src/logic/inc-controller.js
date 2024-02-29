@@ -1,8 +1,6 @@
 import { loadSnapshot, exportSnapshot } from "./inc-loadexp.js";
 import { loadProjects } from "./inc-project.js";
 import { loadTasks } from "./inc-task.js";
-
-
 import { renderToDOM } from "./inc-render.js";
 
 function loadController() {
@@ -14,4 +12,9 @@ function loadController() {
     renderToDOM("Projects");
 }
 
-export { loadController };
+export { 
+    loadController, 
+    renderToDOM,    //inc-render.js
+    loadSnapshot,   //inc-loadexp.js
+    exportSnapshot, //*
+};
