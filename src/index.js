@@ -32,7 +32,7 @@ btExport.addEventListener("click", () => {
     exportSnapshot();
 });
 btAbout.addEventListener("click", () => {
-    alert("tada! v0.0.1");
+    alert("tada! v0.0.1 - RichardNeumann@gmail.com");
 });
 
 loadController();
