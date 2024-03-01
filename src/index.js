@@ -17,7 +17,6 @@ const btTasks = document.getElementById("btTasks");
 const btImport = document.getElementById("btImport");
 const btExport = document.getElementById("btExport");
 const btAbout = document.getElementById("btAbout");
-const dlgAbout = document.getElementById("about");
 
 btProjects.addEventListener("click", () => {
     renderToDOM("Projects");

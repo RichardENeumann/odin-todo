@@ -3,6 +3,7 @@ import { loadProjects } from "./inc-project.js";
 import { loadTasks } from "./inc-task.js";
 import { renderToDOM } from "./inc-render.js";
 
+
 function loadController() {
     console.log("Controller online.");
     loadSnapshot();
