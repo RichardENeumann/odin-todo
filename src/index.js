@@ -3,12 +3,12 @@
 import "./style/main.css";
 
 import { 
-    loadController, 
-    renderToDOM, 
-    loadSnapshot, 
-    exportSnapshot 
-} from "./logic/inc-controller.js";
-
+    loadController,
+    processedTasks,
+    processedProjects,
+ } from "./logic/inc-controller.js";
+ 
+import { renderToDOM } from "./logic/inc-render.js";
 
 const display = document.getElementById("content");
 
@@ -25,7 +25,7 @@ btTasks.addEventListener("click", () => {
     renderToDOM("Tasks");
 });
 btImport.addEventListener("click", () => {
-    loadSnapshot();
+    importSnapshot();
 });
 btExport.addEventListener("click", () => {
     exportSnapshot();
@@ -35,3 +35,4 @@ btAbout.addEventListener("click", () => {
 });
 
 loadController();
+renderToDOM("Projects");

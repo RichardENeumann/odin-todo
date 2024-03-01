@@ -1,21 +1,14 @@
-import { loadSnapshot, exportSnapshot } from "./inc-loadexp.js";
-import { loadProjects } from "./inc-project.js";
-import { loadTasks } from "./inc-task.js";
-import { renderToDOM } from "./inc-render.js";
-
+import { processedProjects } from "./inc-project.js";
+import { processedTasks } from "./inc-task.js";
 
 function loadController() {
     console.log("Controller online.");
-    loadSnapshot();
-    loadProjects();
-    loadTasks();
-
-    renderToDOM("Projects");
+    console.log(processedTasks);
+  //  console.log(processedProjects);
 }
 
 export { 
     loadController, 
-    renderToDOM,    //inc-render.js
-    loadSnapshot,   //inc-loadexp.js
-    exportSnapshot, //*
+    processedTasks,
+    processedProjects,
 };
