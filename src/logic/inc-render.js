@@ -1,10 +1,10 @@
-export { renderToAppConsole, renderToMainDisplay };
+export { renderToAppConsole, renderToDisplay };
 
-function renderToAppConsole(text) {
+function renderToAppConsole(appConsole, text) {
     appConsole.innerText = text;
 }
 
-function renderToMainDisplay(display, selection) {
-    display.innerText = selection;
+function renderToDisplay(display, content) {
+    display.innerText = content;
 }
 

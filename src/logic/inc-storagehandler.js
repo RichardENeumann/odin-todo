@@ -22,7 +22,7 @@ function importSnapshot(fileSelector) {
     if (fileSelector.files.length != 0) {
         let reader = new FileReader();
         reader.addEventListener("load", () => {
-           snapshot = JSON.parse(reader.result);
+          snapshot = JSON.parse(reader.result);
         });
         reader.readAsText(fileSelector.files[0]);
         return "Read successfully";
@@ -46,6 +46,7 @@ function exportSnapshot() {
             document.body.removeChild(element);
 
         document.getElementById("dlgExported").showModal();
+        return "Export successful";
     } else {
         return "Nothing to export";
     }
