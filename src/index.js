@@ -8,15 +8,20 @@ import { createProject } from "./logic/inc-project.js";
 import { renderToDOM } from "./logic/inc-render.js";
 import { loadController, processedTasks, processedProjects } from "./logic/inc-controller.js";
 
+const fileSelector = document.getElementById("fileSelector");
 const display = document.getElementById("content");
+const console = document.getElementById("console");
 
 // Make buttons functional
 // Lefthand group
 document.getElementById("btSave").addEventListener("click", () => {
     saveState();
 });
+document.getElementById("btLoadFile").addEventListener("click", () => {
+    importSnapshot(fileSelector);
+});
 document.getElementById("btImport").addEventListener("click", () => {
-    importSnapshot();
+    document.getElementById("dlgImport").showModal();
 });
 document.getElementById("btExport").addEventListener("click", () => {
     exportSnapshot();

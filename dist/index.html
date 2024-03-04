@@ -35,7 +35,8 @@
     </main>
 
     <footer>
-      <small>v0.0.1</small>
+      <div id="console">Loading...</div>
+      <div id="version">v0.0.1</div>
     </footer>
 
     <dialog id="dlgExported">
@@ -51,6 +52,15 @@
       <form method="dialog">
         <button>Close</button>
       </form>
+    </dialog>
+
+    <dialog id="dlgImport">
+      <input type="file" id="fileSelector" accept="application/json">
+      <form method="dialog">
+        <button>❌ Cancel</button>
+      </form>
+      <button id="btLoadFile">➡️ Load</button>
+      
     </dialog>
 
   </body>
