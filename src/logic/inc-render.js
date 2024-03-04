@@ -1,5 +1,10 @@
-function renderToDOM(display, selection) {
-    display.innerHTML = selection;
+export { renderToAppConsole, renderToMainDisplay };
+
+function renderToAppConsole(text) {
+    appConsole.innerText = text;
 }
 
-export { renderToDOM };
+function renderToMainDisplay(display, selection) {
+    display.innerText = selection;
+}
+

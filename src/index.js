@@ -2,30 +2,33 @@
 
 import "./style/main.css";
 
-import { saveState, importSnapshot, exportSnapshot } from "./logic/inc-storagehandler.js";
+import { snapshot, saveState, importSnapshot, exportSnapshot } from "./logic/inc-storagehandler.js";
 import { createTask } from "./logic/inc-task.js";
 import { createProject } from "./logic/inc-project.js";
-import { renderToDOM } from "./logic/inc-render.js";
-import { loadController, processedTasks, processedProjects } from "./logic/inc-controller.js";
+import { renderToMainDisplay, renderToAppConsole } from "./logic/inc-render.js";
 
 const fileSelector = document.getElementById("fileSelector");
+const dlgImport = document.getElementById("dlgImport");
 const display = document.getElementById("content");
-const console = document.getElementById("console");
+const appConsole = document.getElementById("appConsole");
 
 // Make buttons functional
 // Lefthand group
 document.getElementById("btSave").addEventListener("click", () => {
-    saveState();
+    renderToAppConsole(saveState());
 });
 document.getElementById("btLoadFile").addEventListener("click", () => {
-    importSnapshot(fileSelector);
+    renderToAppConsole(importSnapshot(fileSelector));
+    dlgImport.close();
+    display.innerText = snapshot;
 });
 document.getElementById("btImport").addEventListener("click", () => {
-    document.getElementById("dlgImport").showModal();
+    dlgImport.showModal();
 });
 document.getElementById("btExport").addEventListener("click", () => {
-    exportSnapshot();
+    renderToAppConsole(exportSnapshot());
 });
+
 // Middle group
 document.getElementById("btAddTask").addEventListener("click", () => {
     createTask();
@@ -33,17 +36,17 @@ document.getElementById("btAddTask").addEventListener("click", () => {
 document.getElementById("btAddProject").addEventListener("click", () => {
     createProject();
 });
+
 // Righthand group
 document.getElementById("btShowProjects").addEventListener("click", () => {
-    renderToDOM(display, "Projects");
+    renderToMainDisplay(display, "Projects");
 });
 document.getElementById("btShowTasks").addEventListener("click", () => {
-    renderToDOM(display, "Tasks");
+    renderToMainDisplay(display, "Tasks");
 });
 document.getElementById("btShowAbout").addEventListener("click", () => {
     document.getElementById("dlgAbout").showModal();
 });
 
 // Initialize application
-loadController();
-renderToDOM(display, "Projects");
+renderToMainDisplay(display, "Initial State");

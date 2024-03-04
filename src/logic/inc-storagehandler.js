@@ -1,4 +1,4 @@
-export { saveState, importSnapshot, exportSnapshot, snapshot };
+export { snapshot, saveState, importSnapshot, exportSnapshot };
 
 let snapshot = {};
 
@@ -13,16 +13,21 @@ function saveState() {
         let processedSnapshot = JSON.stringify(snapshot, null, 2);
         localStorage.clear();
         localStorage.setItem("localSnapshot", processedSnapshot);
+        return "Saved to LocalStorage";
     }
+    else return "Nothing to save";
 }
 // Load external JSON file as snapshot
 function importSnapshot(fileSelector) {
     if (fileSelector.files.length != 0) {
         let reader = new FileReader();
         reader.addEventListener("load", () => {
-           // JSON.parse(reader.result);
+           snapshot = JSON.parse(reader.result);
         });
         reader.readAsText(fileSelector.files[0]);
+        return "Read successfully";
+    } else {
+        return "Nothing selected"
     }
 }
 
@@ -41,5 +46,7 @@ function exportSnapshot() {
             document.body.removeChild(element);
 
         document.getElementById("dlgExported").showModal();
+    } else {
+        return "Nothing to export";
     }
 }

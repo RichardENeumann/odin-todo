@@ -1,4 +1,4 @@
-import { snapshot } from "./inc-storagehandler.js";
+export { createTask };
 
 function createTask(title = "Example Task", todo = new Date(), doing = false, done = false) {
     console.log(title, todo, doing, done);
@@ -7,12 +7,3 @@ function createTask(title = "Example Task", todo = new Date(), doing = false, do
     }
     return pTask;
 }
-
-function loadTasks(snapshot) {
-     return snapshot
-
-}
-
-let processedTasks = loadTasks(snapshot);
-
-export { createTask, processedTasks };
