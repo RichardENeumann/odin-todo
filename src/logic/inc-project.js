@@ -6,7 +6,6 @@ function createProject(title = "Example Project", includedTasks = ["0001", "0002
 
 function loadProjects() {
     console.log("Create an array of projects based on snapshot data");
-    createProject();
 }
 
-export { processedProjects };
+export { createProject, processedProjects };

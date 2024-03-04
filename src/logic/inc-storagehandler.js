@@ -20,4 +20,4 @@ function saveState() {
 
 loadSnapshot();
 
-export { snapshot };
+export { saveState, importSnapshot, exportSnapshot, snapshot };

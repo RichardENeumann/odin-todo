@@ -2,37 +2,43 @@
 
 import "./style/main.css";
 
-import { 
-    loadController,
-    processedTasks,
-    processedProjects,
- } from "./logic/inc-controller.js";
- 
+import { saveState, importSnapshot, exportSnapshot } from "./logic/inc-storagehandler.js";
+import { createTask } from "./logic/inc-task.js";
+import { createProject } from "./logic/inc-project.js";
 import { renderToDOM } from "./logic/inc-render.js";
+import { loadController, processedTasks, processedProjects } from "./logic/inc-controller.js";
 
 const display = document.getElementById("content");
 
-const btProjects = document.getElementById("btProjects");
-const btTasks = document.getElementById("btTasks");
-const btImport = document.getElementById("btImport");
-const btExport = document.getElementById("btExport");
-const btAbout = document.getElementById("btAbout");
-
-btProjects.addEventListener("click", () => {
-    renderToDOM("Projects");
+// Make buttons functional
+// Lefthand group
+document.getElementById("btSave").addEventListener("click", () => {
+    saveState();
 });
-btTasks.addEventListener("click", () => {
-    renderToDOM("Tasks");
-});
-btImport.addEventListener("click", () => {
+document.getElementById("btImport").addEventListener("click", () => {
     importSnapshot();
 });
-btExport.addEventListener("click", () => {
+document.getElementById("btExport").addEventListener("click", () => {
     exportSnapshot();
 });
-btAbout.addEventListener("click", () => {
-    alert("tada! v0.0.1 - RichardNeumann@gmail.com");
+// Middle group
+document.getElementById("btAddTask").addEventListener("click", () => {
+    createTask();
+});
+document.getElementById("btAddProject").addEventListener("click", () => {
+    createProject();
+});
+// Righthand group
+document.getElementById("btShowProjects").addEventListener("click", () => {
+    renderToDOM("Projects");
+});
+document.getElementById("btShowTasks").addEventListener("click", () => {
+    renderToDOM("Tasks");
+});
+document.getElementById("btShowAbout").addEventListener("click", () => {
+    document.getElementById("dlgAbout").showModal();
 });
 
+// Initialize application
 loadController();
 renderToDOM("Projects");
