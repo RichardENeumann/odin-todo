@@ -1,5 +1,5 @@
-function renderToDOM(showcaseSel) {
-    console.log("Render Projects/Tasks:" + showcaseSel);
+function renderToDOM(display, selection) {
+    display.innerHTML = selection;
 }
 
 export { renderToDOM };

@@ -30,10 +30,10 @@ document.getElementById("btAddProject").addEventListener("click", () => {
 });
 // Righthand group
 document.getElementById("btShowProjects").addEventListener("click", () => {
-    renderToDOM("Projects");
+    renderToDOM(display, "Projects");
 });
 document.getElementById("btShowTasks").addEventListener("click", () => {
-    renderToDOM("Tasks");
+    renderToDOM(display, "Tasks");
 });
 document.getElementById("btShowAbout").addEventListener("click", () => {
     document.getElementById("dlgAbout").showModal();
@@ -41,4 +41,4 @@ document.getElementById("btShowAbout").addEventListener("click", () => {
 
 // Initialize application
 loadController();
-renderToDOM("Projects");
+renderToDOM(display, "Projects");
