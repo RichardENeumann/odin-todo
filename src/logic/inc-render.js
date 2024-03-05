@@ -1,10 +1,10 @@
 export { renderToAppConsole, renderToDisplay };
 
-function renderToAppConsole(appConsole, text) {
-    appConsole.innerText = text;
+function renderToAppConsole(message) {
+    document.getElementById("appConsole").innerText = message;
 }
 
-function renderToDisplay(display, content) {
-    display.innerText = content;
+function renderToDisplay(content) {
+    document.getElementById("content").innerText = JSON.stringify(content, null, 2);
 }
 

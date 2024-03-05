@@ -1,38 +1,42 @@
-export { snapshot, saveState, importSnapshot, exportSnapshot };
-
-let snapshot = {};
+export { loadOnStartup, saveState, importSnapshot, exportSnapshot };
 
 // Try to load data from localStorage
-if (!localStorage.getItem("localSnapshot") == "") {
-    snapshot = JSON.parse(localStorage.getItem("localSnapshot"));
+function loadOnStartup() {
+    if (!localStorage.getItem("localSnapshot") == "") {
+        return JSON.parse(localStorage.getItem("localSnapshot"));
+    } else {
+        return {}
+    }
 }
 
 // Save current state to localStorage
-function saveState() {
+function saveState(snapshot) {
     if (Object.keys(snapshot) != 0) { 
         let processedSnapshot = JSON.stringify(snapshot, null, 2);
         localStorage.clear();
         localStorage.setItem("localSnapshot", processedSnapshot);
-        return "Saved to LocalStorage";
+        return true;
     }
-    else return "Nothing to save";
+    else return false;
 }
+
 // Load external JSON file as snapshot
 function importSnapshot(fileSelector) {
     if (fileSelector.files.length != 0) {
+        let processedImport;
         let reader = new FileReader();
         reader.addEventListener("load", () => {
-          snapshot = JSON.parse(reader.result);
+          processedImport = JSON.parse(reader.result);
         });
         reader.readAsText(fileSelector.files[0]);
-        return "Read successfully";
+        return processedImport;
     } else {
-        return "Nothing selected"
+        return false
     }
 }
 
 // Export current state to JSON file
-function exportSnapshot() {
+function exportSnapshot(snapshot) {
     if (Object.keys(snapshot) != 0) { 
         let processedSnapshot = JSON.stringify(snapshot, null, 2);
     
@@ -46,8 +50,8 @@ function exportSnapshot() {
             document.body.removeChild(element);
 
         document.getElementById("dlgExported").showModal();
-        return "Export successful";
+        return true;
     } else {
-        return "Nothing to export";
+        return false;
     }
 }
