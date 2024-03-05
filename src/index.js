@@ -30,11 +30,13 @@ const dlgImport = document.getElementById("dlgImport");
 document.getElementById("btImport").addEventListener("click", () => {
     dlgImport.showModal();
 });
+
 document.getElementById("btLoadFile").addEventListener("click", () => {
     const fileSelector = document.getElementById("fileSelector");
     if (fileSelector.files.length != 0) { 
         if (importSnapshot(fileSelector)) {
             renderToAppConsole("Snapshot imported");
+            renderToDisplay(snapshot, "tasks");
         } else { 
             renderToAppConsole("Import failed");
         }
@@ -43,6 +45,7 @@ document.getElementById("btLoadFile").addEventListener("click", () => {
     }
     dlgImport.close();
 });
+
 document.getElementById("btExport").addEventListener("click", () => {
     if (exportSnapshot(snapshot)) {
         renderToAppConsole("Exported to JSON file");
@@ -63,11 +66,11 @@ document.getElementById("btAddProject").addEventListener("click", () => {
 document.getElementById("btShowProjects").addEventListener("click", () => {
     renderToDisplay(snapshot, "projects");
 });
+
 document.getElementById("btShowTasks").addEventListener("click", () => {
     renderToDisplay(snapshot, "tasks");
 });
+
 document.getElementById("btShowAbout").addEventListener("click", () => {
     document.getElementById("dlgAbout").showModal();
 });
-
-
