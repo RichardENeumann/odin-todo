@@ -81,3 +81,19 @@ dialog::backdrop {
 #dlgImport input, form {
     display: inline;
 }
+#display {
+    padding: 24px;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.task {
+    border: 1px solid green;
+}
+.project {
+    padding: 8px;
+    border: 1px solid black;
+}
+.task div {
+    background-color: gray;
+}

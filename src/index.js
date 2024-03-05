@@ -5,13 +5,14 @@ import "./style/main.css";
 import { loadOnStartup, saveState, importSnapshot, exportSnapshot } from "./logic/inc-storagehandler.js";
 import { createTask } from "./logic/inc-task.js";
 import { createProject } from "./logic/inc-project.js";
-import { renderToAppConsole, renderToDisplay,  } from "./logic/inc-render.js";
+import { renderToAppConsole, renderVersionNumber, renderToDisplay,  } from "./logic/inc-render.js";
 
 export { snapshot };
 
 // Initialize
 let snapshot = loadOnStartup();
-renderToAppConsole("Initializing");
+renderVersionNumber("v0.0.2");
+renderToAppConsole("");
 renderToDisplay(snapshot, "tasks");
 
 
