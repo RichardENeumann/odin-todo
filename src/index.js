@@ -12,7 +12,7 @@ export { snapshot };
 // Initialize
 let snapshot = loadOnStartup();
 renderToAppConsole("Initializing");
-renderToDisplay(snapshot);
+renderToDisplay(snapshot, "tasks");
 
 
 const fileSelector = document.getElementById("fileSelector");
@@ -62,10 +62,10 @@ document.getElementById("btAddProject").addEventListener("click", () => {
 
 // Righthand group
 document.getElementById("btShowProjects").addEventListener("click", () => {
-    renderToDisplay(snapshot);
+    renderToDisplay(snapshot, "projects");
 });
 document.getElementById("btShowTasks").addEventListener("click", () => {
-    renderToDisplay(snapshot);
+    renderToDisplay(snapshot, "tasks");
 });
 document.getElementById("btShowAbout").addEventListener("click", () => {
     document.getElementById("dlgAbout").showModal();
