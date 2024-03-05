@@ -7,8 +7,18 @@ import { createTask } from "./logic/inc-task.js";
 import { createProject } from "./logic/inc-project.js";
 import { renderToAppConsole, renderToDisplay,  } from "./logic/inc-render.js";
 
+export { snapshot };
+
+// Initialize
+let snapshot = loadOnStartup();
+renderToAppConsole("Initializing");
+renderToDisplay(snapshot);
+
+
 const fileSelector = document.getElementById("fileSelector");
 const dlgImport = document.getElementById("dlgImport");
+
+
 
 // Make buttons functional
 // Lefthand group
@@ -18,21 +28,21 @@ document.getElementById("btSave").addEventListener("click", () => {
     } else {
         renderToAppConsole("Nothing to save");
     }
-    
-});
-document.getElementById("btLoadFile").addEventListener("click", () => {
-    let result = importSnapshot(fileSelector);
-    if (result) {
-        snapshot = result;
-        renderToAppConsole("Imported successfully");
-        renderToDisplay(snapshot);
-    } else {
-        renderToAppConsole(result + "Import failed");
-    }
-    dlgImport.close();
 });
 document.getElementById("btImport").addEventListener("click", () => {
     dlgImport.showModal();
+});
+document.getElementById("btLoadFile").addEventListener("click", () => {
+    if (fileSelector.files.length != 0) { 
+        if (importSnapshot(fileSelector)) {
+            renderToAppConsole("Snapshot imported");
+        } else { 
+            renderToAppConsole("Import failed");
+        }
+    } else {
+        renderToAppConsole("Nothing to import");
+    }
+    dlgImport.close();
 });
 document.getElementById("btExport").addEventListener("click", () => {
     if (exportSnapshot(snapshot)) {
@@ -61,8 +71,4 @@ document.getElementById("btShowAbout").addEventListener("click", () => {
     document.getElementById("dlgAbout").showModal();
 });
 
-// Initialize
-let snapshot = loadOnStartup();
-renderToAppConsole("Initializing");
-renderToDisplay(snapshot);
 

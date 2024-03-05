@@ -1,3 +1,5 @@
+import { snapshot } from "../index.js";
+
 export { loadOnStartup, saveState, importSnapshot, exportSnapshot };
 
 // Try to load data from localStorage
@@ -22,17 +24,14 @@ function saveState(snapshot) {
 
 // Load external JSON file as snapshot
 function importSnapshot(fileSelector) {
-    if (fileSelector.files.length != 0) {
-        let processedImport;
-        let reader = new FileReader();
-        reader.addEventListener("load", () => {
-          processedImport = JSON.parse(reader.result);
-        });
-        reader.readAsText(fileSelector.files[0]);
-        return processedImport;
-    } else {
-        return false
-    }
+    const reader = new FileReader();
+    reader.addEventListener("load", () => {
+        let result = JSON.parse(reader.result);
+        snapshot.projects = result.projects;
+        snapshot.tasks = result.tasks;
+    });
+    reader.readAsText(fileSelector.files[0]);
+    return true;
 }
 
 // Export current state to JSON file

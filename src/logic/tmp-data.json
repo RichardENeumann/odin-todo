@@ -1,28 +1,24 @@
-[
-    { 
-        "projects": [
+{
+    "projects": [
             {
                 "title": "Test Project",
                 "children": [1, 2]
             }
-        ] 
-    },
-    { 
-        "tasks": [
-            {
-                "id": 1,
-                "title": "Test task",
-                "todo": 1709307225,
-                "doing": false,
-                "done": false
-            },
-            {
-                "id": 2,
-                "title": "Another test task",
-                "todo": 1709300000,
-                "doing": 1709307200,
-                "done": false
-            }
-        ] 
-    }
-]
+        ],
+    "tasks": [
+        {
+            "id": 1,
+            "title": "Test task",
+            "todo": 1709307225,
+            "doing": false,
+            "done": false
+        },
+        {
+            "id": 2,
+            "title": "Another test task",
+            "todo": 1709300000,
+            "doing": 1709307200,
+            "done": false
+        }
+    ] 
+}
