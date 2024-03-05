@@ -5,43 +5,67 @@ const display = document.getElementById("display");
 function renderToAppConsole(message) {
     document.getElementById("appConsole").innerText = message;
 }
+
 function renderVersionNumber(version) {
     let versionDisplay = document.getElementsByClassName("version");
     Array.from(versionDisplay).forEach(element => element.innerText = version);
 }
+
 function renderTasks(taskList, parent) {
     taskList.forEach(element => {
         let taskNode = document.createElement("div");
-        taskNode.innerText = element.title;
-        taskNode.classList.add("task");
+
+        let taskTitle = document.createElement("div");
+        taskTitle.innerText = element.title;
+        taskNode.appendChild(taskTitle);
         
         let taskTodo = document.createElement("div");
-        taskTodo.innerText = element.todo;
+        let todoDate = new Date(element.todo);
+        taskTodo.innerText = todoDate.getDate() + "." + 
+            (todoDate.getMonth()+1) + "." + todoDate.getFullYear();
         taskNode.appendChild(taskTodo);
 
         let taskDoing = document.createElement("div");
-        taskDoing.innerText = element.doing;
+        if (element.doing) {
+            let doingDate = new Date(element.doing);
+            taskDoing.innerText = doingDate.getDate() + "." + 
+                (doingDate.getMonth()+1) + "." + doingDate.getFullYear();
+        } else {
+            taskDoing.innerText = "X";
+        }
         taskNode.appendChild(taskDoing);
 
         let taskDone = document.createElement("div");
-        taskDone.innerText = element.done;
+        if (element.done) {
+            let doneDate = new Date(element.done);
+            taskDone.innerText = doneDate.getDate() + "." + 
+                (doneDate.getMonth()+1) + "." + doneDate.getFullYear();
+        } else {
+            taskDone.innerText = "X";
+        }
         taskNode.appendChild(taskDone);
 
+        taskNode.classList.add("task");
         parent.appendChild(taskNode);   
     });
 }
+
 function renderToDisplay(content, mode = "tasks") {
     switch (mode) {
         case "tasks": {
+            display.classList.remove("showProjects");
+            display.classList.add("showTasks");
             if ("tasks" in content) {
                 display.innerHTML = "";
                 renderTasks(content.tasks, display);
             } else {
-                display.innerText = "No tasks"
+                display.innerHTML = "No tasks"
             }
             break;
         }
         case "projects": {
+            display.classList.remove("showTasks");
+            display.classList.add("showProjects");
             if ("projects" in content) {
                 display.innerHTML = "";
                 content.projects.forEach(element => {
@@ -54,12 +78,13 @@ function renderToDisplay(content, mode = "tasks") {
                     display.appendChild(projectNode);
                 });
             } else {
-                display.innerText = "No Projects";
+                display.innerHTML = "No Projects";
             }
             break;
         }
         default:
-            display.innerText = "An error has occured.";
+            display.innerHTML = "";
+            renderToAppConsole("An error has occured");
     }
 }
 

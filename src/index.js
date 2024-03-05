@@ -12,14 +12,8 @@ export { snapshot };
 // Initialize
 let snapshot = loadOnStartup();
 renderVersionNumber("v0.0.2");
-renderToAppConsole("");
+renderToAppConsole("Status nominal");
 renderToDisplay(snapshot, "tasks");
-
-
-const fileSelector = document.getElementById("fileSelector");
-const dlgImport = document.getElementById("dlgImport");
-
-
 
 // Make buttons functional
 // Lefthand group
@@ -30,10 +24,14 @@ document.getElementById("btSave").addEventListener("click", () => {
         renderToAppConsole("Nothing to save");
     }
 });
+
+const dlgImport = document.getElementById("dlgImport");
+
 document.getElementById("btImport").addEventListener("click", () => {
     dlgImport.showModal();
 });
 document.getElementById("btLoadFile").addEventListener("click", () => {
+    const fileSelector = document.getElementById("fileSelector");
     if (fileSelector.files.length != 0) { 
         if (importSnapshot(fileSelector)) {
             renderToAppConsole("Snapshot imported");
