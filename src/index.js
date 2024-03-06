@@ -52,9 +52,23 @@ document.getElementById("btExport").addEventListener("click", () => {
 });
 
 // Middle group
+// Show Add Task Dialog
+const dlgAddTask = document.getElementById("dlgAddTask");
+const inpAddTask = document.getElementById("newTaskName");
 document.getElementById("btAddTask").addEventListener("click", () => {
-    createTask();
+    inpAddTask.value = "";
+    dlgAddTask.showModal();
 });
+// Create new task
+document.getElementById("btCreateTask").addEventListener("click", () => {
+    if (inpAddTask.value != "") {
+        createTask(inpAddTask.value);
+        renderToDisplay(snapshot, "tasks");
+    }
+    dlgAddTask.close();
+});
+
+
 document.getElementById("btAddProject").addEventListener("click", () => {
     createProject();
 });

@@ -1,9 +1,12 @@
+import { snapshot } from "../index.js";
+
 export { createTask };
 
-function createTask(title = "Example Task", todo = new Date(), doing = false, done = false) {
-    console.log(title, todo, doing, done);
-    let pTask = {
-        title, todo, doing, done
-    }
-    return pTask;
+function createTask(title = "Example Task") {
+    let todo = new Date();
+    console.log(snapshot.tasks);
+    let newTask = {
+        title, 
+        todo     
+    };
 }

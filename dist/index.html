@@ -63,8 +63,11 @@
 
     <dialog id="dlgAddTask">
       Enter the task name:
-      <input type="text" id="newTaskName" maxlength="30">
-      <button id="btCreateTask"></button>
+      <input type="text" id="newTaskName" maxlength="20" size="20">
+      <form method="dialog">
+        <button>❌ Cancel</button>
+      </form>
+      <button id="btCreateTask">➡️ Create</button>
     </dialog>
 
   </body>
