@@ -1,4 +1,5 @@
 import { snapshot } from "../index.js";
+import { renderToDisplay } from "./inc-render.js";
 
 export { loadOnStartup, saveState, importSnapshot, exportSnapshot };
 
@@ -29,9 +30,10 @@ function importSnapshot(fileSelector) {
         let result = JSON.parse(reader.result);
         snapshot.projects = result.projects;
         snapshot.tasks = result.tasks;
+        // HOW to do this from index.js? (Separation of concerns)
+        renderToDisplay(snapshot, "tasks");
     });
     reader.readAsText(fileSelector.files[0]);
-    return true;
 }
 
 // Export current state to JSON file

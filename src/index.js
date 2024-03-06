@@ -15,8 +15,9 @@ renderVersionNumber("v0.0.2");
 renderToAppConsole("Status nominal");
 renderToDisplay(snapshot, "tasks");
 
-// Make buttons functional
+// Implement button functionality
 // Lefthand group
+// Save current state of snapshot object to localStorage
 document.getElementById("btSave").addEventListener("click", () => {
     if (saveState(snapshot)) {
         renderToAppConsole("Saved to localStorage");
@@ -25,21 +26,17 @@ document.getElementById("btSave").addEventListener("click", () => {
     }
 });
 
+// Open file selector dialog
 const dlgImport = document.getElementById("dlgImport");
+document.getElementById("btImport").addEventListener("click", () => dlgImport.showModal());
 
-document.getElementById("btImport").addEventListener("click", () => {
-    dlgImport.showModal();
-});
-
+// If file is selected, load JSON, update local snapshot object, then re-render
 document.getElementById("btLoadFile").addEventListener("click", () => {
     const fileSelector = document.getElementById("fileSelector");
     if (fileSelector.files.length != 0) { 
-        if (importSnapshot(fileSelector)) {
-            renderToAppConsole("Snapshot imported");
-            renderToDisplay(snapshot, "tasks");
-        } else { 
-            renderToAppConsole("Import failed");
-        }
+        importSnapshot(fileSelector)
+        renderToAppConsole("Snapshot imported");
+        renderToDisplay(snapshot, "tasks");
     } else {
         renderToAppConsole("Nothing to import");
     }

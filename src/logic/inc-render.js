@@ -78,7 +78,7 @@ function renderToDisplay(content, mode = "tasks") {
                     display.appendChild(projectNode);
                 });
             } else {
-                display.innerHTML = "No Projects";
+                display.innerHTML = "No projects";
             }
             break;
         }
