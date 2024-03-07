@@ -11,7 +11,7 @@ export { snapshot };
 
 // Initialize
 let snapshot = loadOnStartup();
-renderVersionNumber("v0.1.3");
+renderVersionNumber("v0.1.4");
 renderToAppConsole("Status nominal");
 renderToDisplay("tasks");
 

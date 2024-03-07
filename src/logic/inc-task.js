@@ -1,12 +1,12 @@
 import { snapshot } from "../index.js";
 
-export { createTask, findUnusedId };
+export { findUnusedId, createTask, updateTask };
 
 function findUnusedId(target) {
+    // target = projects or tasks
     // First sort all id numbers into an array by ascending order
     let helper = snapshot[target].toSorted((a, b) => (a.id < b.id) ? -1 : (a.id > b.id) ? 1 : 0);
 
-    console.log(snapshot[target]);
     // Find first unused id by comparing index to id key
     let unusedId = 0;
     while (unusedId < helper.length && unusedId === helper[unusedId].id) {
@@ -30,4 +30,9 @@ function createTask(title = "Example Task") {
         snapshot.tasks = [];
         snapshot.tasks.push(newTask);
     }
+}
+
+function updateTask(id, title) {
+    const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
+    snapshot.tasks[taskIndex].title = title;
 }

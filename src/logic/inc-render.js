@@ -111,15 +111,32 @@ function renderProjects(projectList) {
     });
 }
 
+const dlgEditTask = document.getElementById("dlgEditTask");
+const inpTaskName = document.getElementById("inpTaskName");
+
 function showEditTaskDialogue(taskId) {
-    const dlgEditTask = document.getElementById("dlgEditTask");
-    const inpTaskName = document.getElementById("inpTaskName");
     let targetId = taskId.id.match(/\d+$/)[0];
     inpTaskName.value = snapshot.tasks.find(a => a.id == targetId).title;
-    dlgEditTask.showModal();
+    
+    // Put task id into DOM for updateTask()
+    const datTask = document.createElement("data");
+    datTask.id = "datTask";
+    datTask.value = taskId.id.match(/\d+$/)[0];
+    dlgEditTask.appendChild(datTask);
+ 
+    const btUpdateTask = document.getElementById("btUpdateTask");
+    btUpdateTask.onclick = ConfirmUpdateTask;
 
-    console.log(targetId);
-    // const btUpdateTask = document.getElementById("btUpdateTask");
-    //btUpdateTask.addEventListener("click", () => {});
+    dlgEditTask.showModal();
 }
 
+function ConfirmUpdateTask() {
+    const taskId = document.getElementById("datTask").value;
+    dlgEditTask.removeChild(document.getElementById("datTask"));
+
+    const taskTitle = inpTaskName.value;
+
+    updateTask(taskId, taskTitle);
+    renderToDisplay();
+    dlgEditTask.close();
+}
