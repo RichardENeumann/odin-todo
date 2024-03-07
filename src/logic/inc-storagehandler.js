@@ -26,12 +26,13 @@ function saveState(snapshot) {
 // Load external JSON file as snapshot
 function importSnapshot(fileSelector) {
     const reader = new FileReader();
+
     reader.addEventListener("load", () => {
         let result = JSON.parse(reader.result);
         snapshot.projects = result.projects;
         snapshot.tasks = result.tasks;
-        // HOW to do this from index.js? (Separation of concerns)
-        renderToDisplay(snapshot, "tasks");
+        // implement as .then later in index.js to separate concerns:
+        renderToDisplay("tasks");
     });
     reader.readAsText(fileSelector.files[0]);
 }

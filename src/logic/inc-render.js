@@ -1,3 +1,5 @@
+import { snapshot } from "../index.js";
+
 export { renderToAppConsole, renderVersionNumber, renderToDisplay };
 
 const display = document.getElementById("display");
@@ -46,18 +48,36 @@ function renderTasks(taskList, parent) {
         taskNode.appendChild(taskDone);
 
         taskNode.classList.add("task");
+        taskNode.id = element.id;
         parent.appendChild(taskNode);   
     });
 }
 
-function renderToDisplay(content, mode = "tasks") {
+function renderProjects(projectList) {
+    projectList.forEach(element => {
+        let projectNode = document.createElement("div");
+        projectNode.innerText = element.title;
+        projectNode.classList.add("project");
+        
+        // Find tasks associated with project and render them
+        let projectChildren = [];
+        element.children.forEach(child => {
+             projectChildren.push(snapshot.tasks.find(element => element.id == child));
+        })
+        renderTasks(projectChildren, projectNode);
+        
+        display.appendChild(projectNode);
+    });
+}
+
+function renderToDisplay(mode = "tasks") {
     switch (mode) {
         case "tasks": {
             display.classList.remove("showProjects");
             display.classList.add("showTasks");
-            if ("tasks" in content) {
+            if ("tasks" in snapshot) {
                 display.innerHTML = "";
-                renderTasks(content.tasks, display);
+                renderTasks(snapshot.tasks, display);
             } else {
                 display.innerHTML = "No tasks"
             }
@@ -66,17 +86,9 @@ function renderToDisplay(content, mode = "tasks") {
         case "projects": {
             display.classList.remove("showTasks");
             display.classList.add("showProjects");
-            if ("projects" in content) {
+            if ("projects" in snapshot) {
                 display.innerHTML = "";
-                content.projects.forEach(element => {
-                    let projectNode = document.createElement("div");
-                    projectNode.innerText = element.title;
-                    projectNode.classList.add("project");
-
-                    renderTasks(content.tasks, projectNode);
-
-                    display.appendChild(projectNode);
-                });
+                renderProjects(snapshot.projects);
             } else {
                 display.innerHTML = "No projects";
             }

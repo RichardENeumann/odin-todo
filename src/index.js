@@ -11,9 +11,9 @@ export { snapshot };
 
 // Initialize
 let snapshot = loadOnStartup();
-renderVersionNumber("v0.0.2");
+renderVersionNumber("v0.1.1");
 renderToAppConsole("Status nominal");
-renderToDisplay(snapshot, "tasks");
+renderToDisplay("tasks");
 
 // Implement button functionality
 // Lefthand group
@@ -36,7 +36,7 @@ document.getElementById("btLoadFile").addEventListener("click", () => {
     if (fileSelector.files.length != 0) { 
         importSnapshot(fileSelector)
         renderToAppConsole("Snapshot imported");
-        renderToDisplay(snapshot, "tasks");
+        renderToDisplay("tasks");
     } else {
         renderToAppConsole("Nothing to import");
     }
@@ -63,7 +63,7 @@ document.getElementById("btAddTask").addEventListener("click", () => {
 document.getElementById("btCreateTask").addEventListener("click", () => {
     if (inpAddTask.value != "") {
         createTask(inpAddTask.value);
-        renderToDisplay(snapshot, "tasks");
+        renderToDisplay("tasks");
     }
     dlgAddTask.close();
 });
@@ -75,11 +75,11 @@ document.getElementById("btAddProject").addEventListener("click", () => {
 
 // Righthand group
 document.getElementById("btShowProjects").addEventListener("click", () => {
-    renderToDisplay(snapshot, "projects");
+    renderToDisplay("projects");
 });
 
 document.getElementById("btShowTasks").addEventListener("click", () => {
-    renderToDisplay(snapshot, "tasks");
+    renderToDisplay("tasks");
 });
 
 document.getElementById("btShowAbout").addEventListener("click", () => {
