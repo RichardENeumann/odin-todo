@@ -6,19 +6,19 @@
             },
             {
                 "title": "Another Test Project",
-                "children": [5]
+                "children": [5, 1]
             }
         ],
     "tasks": [
         {
-            "id": 3,
+            "id": 0,
             "title": "Test task",
             "todo": 1709307225,
             "doing": false,
             "done": false
         },
         {
-            "id": 5,
+            "id": 2,
             "title": "Another test task",
             "todo": 1709300000,
             "doing": 1709307200,
