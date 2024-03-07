@@ -38,27 +38,21 @@
       <div id="version" class="version">v0.0.1</div>
     </footer>
 
-    <dialog id="dlgExported">
-      A snapshot has been saved to your download folder.<br><br>
-      <form method="dialog">
-        <button>Close</button>
-      </form>
-    </dialog>
-
-    <dialog id="dlgAbout">
-      <b>Tada!</b> <i class="version">v0.0.1</i><br>
-      <a href="mailto:richardneumann@gmail.com">Contact</a><br><br>
-      <form method="dialog">
-        <button>Close</button>
-      </form>
-    </dialog>
-
+    <!-- DIALOG WINDOWS -->
+    
     <dialog id="dlgImport">
       <input type="file" id="fileSelector" accept="application/json">
       <form method="dialog">
         <button>❌ Cancel</button>
       </form>
       <button id="btLoadFile">➡️ Load</button>
+    </dialog>
+
+    <dialog id="dlgExported">
+      A snapshot has been saved to your download folder.<br><br>
+      <form method="dialog">
+        <button>Close</button>
+      </form>
     </dialog>
 
     <dialog id="dlgAddTask">
@@ -68,6 +62,23 @@
         <button>❌ Cancel</button>
       </form>
       <button id="btCreateTask">➡️ Create</button>
+    </dialog>
+
+    <dialog id="dlgAddProject">
+      Enter the project name:
+      <input type="text" id="newProjectName" maxlength="20" size="20">
+      <form method="dialog">
+        <button>❌ Cancel</button>
+      </form>
+      <button id="btCreateProject">➡️ Create</button>
+    </dialog>
+
+    <dialog id="dlgAbout">
+      <b>Tada!</b> <i class="version">v0.0.1</i><br>
+      <a href="mailto:richardneumann@gmail.com">Contact</a><br><br>
+      <form method="dialog">
+        <button>Close</button>
+      </form>
     </dialog>
 
   </body>

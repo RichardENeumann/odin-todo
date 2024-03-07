@@ -11,7 +11,7 @@ export { snapshot };
 
 // Initialize
 let snapshot = loadOnStartup();
-renderVersionNumber("v0.1.1");
+renderVersionNumber("v0.1.2");
 renderToAppConsole("Status nominal");
 renderToDisplay("tasks");
 
@@ -36,7 +36,6 @@ document.getElementById("btLoadFile").addEventListener("click", () => {
     if (fileSelector.files.length != 0) { 
         importSnapshot(fileSelector)
         renderToAppConsole("Snapshot imported");
-        renderToDisplay("tasks");
     } else {
         renderToAppConsole("Nothing to import");
     }
@@ -47,12 +46,12 @@ document.getElementById("btExport").addEventListener("click", () => {
     if (exportSnapshot(snapshot)) {
         renderToAppConsole("Exported to JSON file");
     } else {
-        renderToAppConsole("Nothing to export");
+        renderToAppConsole("Nothing exported");
     }
 });
 
 // Middle group
-// Show Add Task Dialog
+// Show Add Task dialog
 const dlgAddTask = document.getElementById("dlgAddTask");
 const inpAddTask = document.getElementById("newTaskName");
 document.getElementById("btAddTask").addEventListener("click", () => {
@@ -63,15 +62,28 @@ document.getElementById("btAddTask").addEventListener("click", () => {
 document.getElementById("btCreateTask").addEventListener("click", () => {
     if (inpAddTask.value != "") {
         createTask(inpAddTask.value);
+        renderToAppConsole("Task created successfully");
         renderToDisplay("tasks");
     }
     dlgAddTask.close();
 });
 
-
+// Show Add Project dialog
+const dlgAddProject = document.getElementById("dlgAddProject");
+const inpAddProject = document.getElementById("newProjectName");
 document.getElementById("btAddProject").addEventListener("click", () => {
-    createProject();
+    inpAddProject.value = "";
+    dlgAddProject.showModal();
 });
+// Create new project
+document.getElementById("btCreateProject").addEventListener("click", () => {
+    if (inpAddProject.value != "") {
+        createProject(inpAddProject.value);
+        renderToAppConsole("Project created successfully");
+        renderToDisplay("projects");
+    }
+    dlgAddProject.close();    
+})
 
 // Righthand group
 document.getElementById("btShowProjects").addEventListener("click", () => {

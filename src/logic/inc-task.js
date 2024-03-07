@@ -1,11 +1,12 @@
 import { snapshot } from "../index.js";
 
-export { createTask };
+export { createTask, findUnusedId };
 
-function findUnusedId() {
+function findUnusedId(target) {
     // First sort all id numbers into an array by ascending order
-    let helper = snapshot.tasks.toSorted((a, b) => (a.id < b.id) ? -1 : (a.id > b.id) ? 1 : 0);
+    let helper = snapshot[target].toSorted((a, b) => (a.id < b.id) ? -1 : (a.id > b.id) ? 1 : 0);
 
+    console.log(snapshot[target]);
     // Find first unused id by comparing index to id key
     let unusedId = 0;
     while (unusedId < helper.length && unusedId === helper[unusedId].id) {
@@ -17,16 +18,16 @@ function findUnusedId() {
 function createTask(title = "Example Task") {
     let newTask = {
         title, 
-        "id": findUnusedId(),
+        "id": findUnusedId("tasks"),
         "todo" : new Date().toISOString(),  
         "doing": false,   
         "done": false
     };
     // Check if snapshot is empty before pushing new task
     if ("tasks" in snapshot) {
-        snapshot.tasks.push(newTask)    
+        snapshot.tasks.push(newTask);
     } else {
         snapshot.tasks = [];
-        snapshot.tasks.push(newTask)
+        snapshot.tasks.push(newTask);
     }
 }

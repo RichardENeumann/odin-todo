@@ -70,6 +70,7 @@ function renderProjects(projectList) {
     });
 }
 
+// Show either tasks or projects on screen
 function renderToDisplay(mode = "tasks") {
     switch (mode) {
         case "tasks": {
@@ -99,4 +100,3 @@ function renderToDisplay(mode = "tasks") {
             renderToAppConsole("An error has occured");
     }
 }
-
