@@ -81,5 +81,30 @@
       </form>
     </dialog>
 
+    <dialog id="dlgEditTask">
+      Edit task details:<br>
+      <label for="inpTaskName">Title:</label>
+      <input type="text" id="inpTaskName" maxlength="20" size="20"><br>
+      <form method="dialog">
+        <button>❌ Cancel</button>
+      </form>
+      <button id="btUpdateTask">➡️ Confirm</button>
+    </dialog>
+
+    <dialog id="dlgEditProject">
+      Edit project details:<br>
+      <label for="inpProjectName">Title:</label>
+      <input type="text" id="inpProjectName" maxlength="20" size="20"><br>
+
+      <select id="taskList" multiple="multiple">
+        <option value="1">Task</option>
+      </select><br>
+      
+      <form method="dialog">
+        <button>❌ Cancel</button>
+      </form>
+      <button id="btUpdateProject">➡️ Confirm</button>
+    </dialog>
+
   </body>
 </html>

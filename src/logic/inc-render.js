@@ -1,4 +1,5 @@
 import { snapshot } from "../index.js";
+import { updateTask } from "./inc-task.js";
 
 export { renderToAppConsole, renderVersionNumber, renderToDisplay };
 
@@ -11,63 +12,6 @@ function renderToAppConsole(message) {
 function renderVersionNumber(version) {
     let versionDisplay = document.getElementsByClassName("version");
     Array.from(versionDisplay).forEach(element => element.innerText = version);
-}
-
-function renderTasks(taskList, parent) {
-    taskList.forEach(element => {
-        let taskNode = document.createElement("div");
-
-        let taskTitle = document.createElement("div");
-        taskTitle.innerText = element.title;
-        taskNode.appendChild(taskTitle);
-        
-        let taskTodo = document.createElement("div");
-        let todoDate = new Date(element.todo);
-        taskTodo.innerText = todoDate.getDate() + "." + 
-            (todoDate.getMonth()+1) + "." + todoDate.getFullYear();
-        taskNode.appendChild(taskTodo);
-
-        let taskDoing = document.createElement("div");
-        if (element.doing) {
-            let doingDate = new Date(element.doing);
-            taskDoing.innerText = doingDate.getDate() + "." + 
-                (doingDate.getMonth()+1) + "." + doingDate.getFullYear();
-        } else {
-            taskDoing.innerText = "X";
-        }
-        taskNode.appendChild(taskDoing);
-
-        let taskDone = document.createElement("div");
-        if (element.done) {
-            let doneDate = new Date(element.done);
-            taskDone.innerText = doneDate.getDate() + "." + 
-                (doneDate.getMonth()+1) + "." + doneDate.getFullYear();
-        } else {
-            taskDone.innerText = "X";
-        }
-        taskNode.appendChild(taskDone);
-
-        taskNode.classList.add("task");
-        taskNode.id = element.id;
-        parent.appendChild(taskNode);   
-    });
-}
-
-function renderProjects(projectList) {
-    projectList.forEach(element => {
-        let projectNode = document.createElement("div");
-        projectNode.innerText = element.title;
-        projectNode.classList.add("project");
-        
-        // Find tasks associated with project and render them
-        let projectChildren = [];
-        element.children.forEach(child => {
-             projectChildren.push(snapshot.tasks.find(element => element.id == child));
-        })
-        renderTasks(projectChildren, projectNode);
-        
-        display.appendChild(projectNode);
-    });
 }
 
 // Show either tasks or projects on screen
@@ -100,3 +44,82 @@ function renderToDisplay(mode = "tasks") {
             renderToAppConsole("An error has occured");
     }
 }
+
+function renderTasks(taskList, parent) {
+    taskList.forEach(element => {
+        let taskNode = document.createElement("div");
+
+        let taskTitle = document.createElement("div");
+        taskTitle.innerText = element.title;
+        
+            let editButton = document.createElement("button");
+            editButton.id = "editTask" + element.id;
+            editButton.innerText = "✏️";
+            editButton.addEventListener("click", (e) => {
+                showEditTaskDialogue(e.target);
+            });
+            taskTitle.appendChild(editButton);
+    
+        taskNode.appendChild(taskTitle);
+        
+        let taskTodo = document.createElement("div");
+        let todoDate = new Date(element.todo);
+        taskTodo.innerText = todoDate.getDate() + "." + 
+            (todoDate.getMonth()+1) + "." + todoDate.getFullYear();
+        taskNode.appendChild(taskTodo);
+
+        let taskDoing = document.createElement("div");
+        if (element.doing) {
+            let doingDate = new Date(element.doing);
+            taskDoing.innerText = doingDate.getDate() + "." + 
+                (doingDate.getMonth()+1) + "." + doingDate.getFullYear();
+        } else {
+            taskDoing.innerText = "X";
+        }
+        taskNode.appendChild(taskDoing);
+
+        let taskDone = document.createElement("div");
+        if (element.done) {
+            let doneDate = new Date(element.done);
+            taskDone.innerText = doneDate.getDate() + "." + 
+                (doneDate.getMonth()+1) + "." + doneDate.getFullYear();
+        } else {
+            taskDone.innerText = "X";
+        }
+        taskNode.appendChild(taskDone);
+
+        taskNode.classList.add("task");
+        taskNode.id = "task" + element.id;
+        parent.appendChild(taskNode);   
+    });
+}
+
+function renderProjects(projectList) {
+    projectList.forEach(element => {
+        let projectNode = document.createElement("div");
+        projectNode.innerText = element.title;
+        projectNode.classList.add("project");
+        
+        // Find tasks associated with project and render them
+        let projectChildren = [];
+        element.children.forEach(child => {
+             projectChildren.push(snapshot.tasks.find(element => element.id == child));
+        })
+        renderTasks(projectChildren, projectNode);
+        
+        display.appendChild(projectNode);
+    });
+}
+
+function showEditTaskDialogue(taskId) {
+    const dlgEditTask = document.getElementById("dlgEditTask");
+    const inpTaskName = document.getElementById("inpTaskName");
+    let targetId = taskId.id.match(/\d+$/)[0];
+    inpTaskName.value = snapshot.tasks.find(a => a.id == targetId).title;
+    dlgEditTask.showModal();
+
+    console.log(targetId);
+    // const btUpdateTask = document.getElementById("btUpdateTask");
+    //btUpdateTask.addEventListener("click", () => {});
+}
+
