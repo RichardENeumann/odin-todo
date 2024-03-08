@@ -11,16 +11,16 @@
     <header>
       <h1>Tada!</h1>
       <nav>
-        <div id="fileHandling">
+        <div>
           <button id="btSave">💾 Save</button>
           <button id="btImport">↙️ Import</button>
           <button id="btExport">↗️ Export</button>
         </div>
-        <div id="taskHandling">
+        <div>
           <button id="btAddTask">➕ Add Task</button>
           <button id="btAddProject">➕ Add Project</button>
         </div>
-        <div id="displayHandling">
+        <div>
           <button id="btShowProjects">📋 Projects</button>
           <button id="btShowTasks">⌚ Tasks</button>
           <button id="btShowAbout">❓ About</button>
@@ -35,7 +35,7 @@
 
     <footer>
       <div id="appConsole">Loading...</div>
-      <div id="version" class="version">v0.0.1</div>
+      <div class="version">v0.0.1</div>
     </footer>
 
     <!-- DIALOG WINDOWS -->
@@ -82,6 +82,7 @@
     </dialog>
 
     <dialog id="dlgEditTask">
+      <data id="dtEditTask" value=""></data>
       Edit task details:<br>
       <label for="inpTaskName">Title:</label>
       <input type="text" id="inpTaskName" maxlength="20" size="20"><br>
@@ -89,6 +90,15 @@
         <button>❌ Cancel</button>
       </form>
       <button id="btUpdateTask">➡️ Confirm</button>
+    </dialog>
+    
+    <dialog id="dlgDelTask">
+      <data id="datDelId" value=""></data>
+      Are you sure you want to delete this task?
+      <form method="dialog">
+        <button>❌ Cancel</button>
+      </form>
+      <button id="btConfirmDelTask">➡️ Confirm</button>
     </dialog>
 
     <dialog id="dlgEditProject">

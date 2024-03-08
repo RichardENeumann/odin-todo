@@ -11,7 +11,7 @@ export { snapshot };
 
 // Initialize
 let snapshot = loadOnStartup();
-renderVersionNumber("v0.1.4");
+renderVersionNumber("v0.1.5");
 renderToAppConsole("Status nominal");
 renderToDisplay("tasks");
 
@@ -58,7 +58,7 @@ document.getElementById("btAddTask").addEventListener("click", () => {
     inpAddTask.value = "";
     dlgAddTask.showModal();
 });
-// Create new task
+// Show Create New Task dialog
 document.getElementById("btCreateTask").addEventListener("click", () => {
     if (inpAddTask.value != "") {
         createTask(inpAddTask.value);
@@ -75,7 +75,7 @@ document.getElementById("btAddProject").addEventListener("click", () => {
     inpAddProject.value = "";
     dlgAddProject.showModal();
 });
-// Create new project
+// Show Create New Project dialog
 document.getElementById("btCreateProject").addEventListener("click", () => {
     if (inpAddProject.value != "") {
         createProject(inpAddProject.value);

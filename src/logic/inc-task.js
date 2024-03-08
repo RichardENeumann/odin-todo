@@ -1,6 +1,6 @@
 import { snapshot } from "../index.js";
 
-export { findUnusedId, createTask, updateTask };
+export { findUnusedId, createTask, updateTask, deleteTask };
 
 function findUnusedId(target) {
     // target = projects or tasks
@@ -35,4 +35,10 @@ function createTask(title = "Example Task") {
 function updateTask(id, title) {
     const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
     snapshot.tasks[taskIndex].title = title;
+}
+
+function deleteTask(id) {
+    console.log(id);
+    const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
+    snapshot.tasks.splice(taskIndex, 1);
 }

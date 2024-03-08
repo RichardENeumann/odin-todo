@@ -1,5 +1,5 @@
 import { snapshot } from "../index.js";
-import { updateTask } from "./inc-task.js";
+import { updateTask, deleteTask } from "./inc-task.js";
 
 export { renderToAppConsole, renderVersionNumber, renderToDisplay };
 
@@ -56,9 +56,17 @@ function renderTasks(taskList, parent) {
             editButton.id = "editTask" + element.id;
             editButton.innerText = "✏️";
             editButton.addEventListener("click", (e) => {
-                showEditTaskDialogue(e.target);
+                showEditTaskDialog(e.target);
             });
             taskTitle.appendChild(editButton);
+
+            const btDeleteTask = document.createElement("button");
+            btDeleteTask.id = "delTask" + element.id;
+            btDeleteTask.innerText = "🗑️"
+            btDeleteTask.addEventListener("click", (e) => {
+                showDeleteTaskDialog(e.target);
+            })
+            taskTitle.appendChild(btDeleteTask);
     
         taskNode.appendChild(taskTitle);
         
@@ -111,11 +119,12 @@ function renderProjects(projectList) {
     });
 }
 
+// Handle editing of tasks
 const dlgEditTask = document.getElementById("dlgEditTask");
 const inpTaskName = document.getElementById("inpTaskName");
 
-function showEditTaskDialogue(taskId) {
-    let targetId = taskId.id.match(/\d+$/)[0];
+function showEditTaskDialog(taskId) {
+    const targetId = taskId.id.match(/\d+$/)[0];
     inpTaskName.value = snapshot.tasks.find(a => a.id == targetId).title;
     
     // Put task id into DOM for updateTask()
@@ -125,12 +134,12 @@ function showEditTaskDialogue(taskId) {
     dlgEditTask.appendChild(datTask);
  
     const btUpdateTask = document.getElementById("btUpdateTask");
-    btUpdateTask.onclick = ConfirmUpdateTask;
+    btUpdateTask.onclick = confirmUpdateTask;
 
     dlgEditTask.showModal();
 }
 
-function ConfirmUpdateTask() {
+function confirmUpdateTask() {
     const taskId = document.getElementById("datTask").value;
     dlgEditTask.removeChild(document.getElementById("datTask"));
 
@@ -139,4 +148,26 @@ function ConfirmUpdateTask() {
     updateTask(taskId, taskTitle);
     renderToDisplay();
     dlgEditTask.close();
+}
+
+// Handle deleting of tasks
+const dlgDelTask = document.getElementById("dlgDelTask");
+
+const btConfirmDelTask = document.getElementById("btConfirmDelTask");
+    btConfirmDelTask.onclick = confirmDelTask;
+
+const datDelId = document.getElementById("datDelId")
+
+function showDeleteTaskDialog(target) {
+    datDelId.value = target.id.match(/\d+$/)[0];
+
+    dlgDelTask.showModal();
+}
+
+function confirmDelTask() {
+    deleteTask(datDelId.value);
+    datDelId.value = "";
+
+    renderToDisplay();
+    dlgDelTask.close();
 }
