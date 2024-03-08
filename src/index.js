@@ -11,9 +11,9 @@ export { snapshot };
 
 // Initialize
 let snapshot = loadOnStartup();
-renderVersionNumber("v0.1.5");
+renderVersionNumber("v0.1.6");
 renderToAppConsole("Status nominal");
-renderToDisplay("tasks");
+renderToDisplay();
 
 // Implement button functionality
 // Lefthand group
@@ -31,7 +31,7 @@ const dlgImport = document.getElementById("dlgImport");
 document.getElementById("btImport").addEventListener("click", () => dlgImport.showModal());
 
 // If file is selected, load JSON, update local snapshot object, then re-render
-document.getElementById("btLoadFile").addEventListener("click", () => {
+document.getElementById("btConfirmImport").addEventListener("click", () => {
     const fileSelector = document.getElementById("fileSelector");
     if (fileSelector.files.length != 0) { 
         importSnapshot(fileSelector)
@@ -45,6 +45,7 @@ document.getElementById("btLoadFile").addEventListener("click", () => {
 document.getElementById("btExport").addEventListener("click", () => {
     if (exportSnapshot(snapshot)) {
         renderToAppConsole("Exported to JSON file");
+        document.getElementById("dlgExportSuccess").showModal();
     } else {
         renderToAppConsole("Nothing exported");
     }
@@ -53,37 +54,39 @@ document.getElementById("btExport").addEventListener("click", () => {
 // Middle group
 // Show Add Task dialog
 const dlgAddTask = document.getElementById("dlgAddTask");
-const inpAddTask = document.getElementById("newTaskName");
+const inpAddTaskName = document.getElementById("inpAddTaskName");
+
 document.getElementById("btAddTask").addEventListener("click", () => {
-    inpAddTask.value = "";
+    inpAddTaskName.value = "";
     dlgAddTask.showModal();
 });
-// Show Create New Task dialog
-document.getElementById("btCreateTask").addEventListener("click", () => {
-    if (inpAddTask.value != "") {
-        createTask(inpAddTask.value);
+
+document.getElementById("btConfirmAddTask").addEventListener("click", () => {
+    if (inpAddTaskName.value != "") {
+        createTask(inpAddTaskName.value);
         renderToAppConsole("Task created successfully");
-        renderToDisplay("tasks");
+        renderToDisplay();
     }
     dlgAddTask.close();
 });
 
 // Show Add Project dialog
 const dlgAddProject = document.getElementById("dlgAddProject");
-const inpAddProject = document.getElementById("newProjectName");
+const inpAddProjectName = document.getElementById("inpAddProjectName");
+
 document.getElementById("btAddProject").addEventListener("click", () => {
-    inpAddProject.value = "";
+    inpAddProjectName.value = "";
     dlgAddProject.showModal();
 });
 // Show Create New Project dialog
-document.getElementById("btCreateProject").addEventListener("click", () => {
-    if (inpAddProject.value != "") {
-        createProject(inpAddProject.value);
+document.getElementById("btConfirmAddProject").addEventListener("click", () => {
+    if (inpAddProjectName.value != "") {
+        createProject(inpAddProjectName.value);
         renderToAppConsole("Project created successfully");
         renderToDisplay("projects");
     }
     dlgAddProject.close();    
-})
+});
 
 // Righthand group
 document.getElementById("btShowProjects").addEventListener("click", () => {
@@ -91,7 +94,7 @@ document.getElementById("btShowProjects").addEventListener("click", () => {
 });
 
 document.getElementById("btShowTasks").addEventListener("click", () => {
-    renderToDisplay("tasks");
+    renderToDisplay();
 });
 
 document.getElementById("btShowAbout").addEventListener("click", () => {

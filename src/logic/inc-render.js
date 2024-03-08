@@ -121,53 +121,46 @@ function renderProjects(projectList) {
 
 // Handle editing of tasks
 const dlgEditTask = document.getElementById("dlgEditTask");
-const inpTaskName = document.getElementById("inpTaskName");
+const inpEditTaskName = document.getElementById("inpEditTaskName");
 
-function showEditTaskDialog(taskId) {
-    const targetId = taskId.id.match(/\d+$/)[0];
-    inpTaskName.value = snapshot.tasks.find(a => a.id == targetId).title;
+const datEditTaskId = document.getElementById("datEditTaskId");
+
+const btConfirmEditTask = document.getElementById("btConfirmEditTask");
+    btConfirmEditTask.onclick = confirmUpdateTask;
+
+
+function showEditTaskDialog(target) {
+    const taskId = target.id.match(/\d+$/)[0];
+    inpEditTaskName.value = snapshot.tasks.find(a => a.id == taskId).title;
     
-    // Put task id into DOM for updateTask()
-    const datTask = document.createElement("data");
-    datTask.id = "datTask";
-    datTask.value = taskId.id.match(/\d+$/)[0];
-    dlgEditTask.appendChild(datTask);
- 
-    const btUpdateTask = document.getElementById("btUpdateTask");
-    btUpdateTask.onclick = confirmUpdateTask;
+    // Put taskId into DOM for updateTask()
+    datEditTaskId.value = taskId;
 
     dlgEditTask.showModal();
 }
 
 function confirmUpdateTask() {
-    const taskId = document.getElementById("datTask").value;
-    dlgEditTask.removeChild(document.getElementById("datTask"));
+    updateTask(datEditTaskId.value, inpEditTaskName.value);
+    datEditTaskId.value = "";
 
-    const taskTitle = inpTaskName.value;
-
-    updateTask(taskId, taskTitle);
     renderToDisplay();
     dlgEditTask.close();
 }
 
 // Handle deleting of tasks
 const dlgDelTask = document.getElementById("dlgDelTask");
-
 const btConfirmDelTask = document.getElementById("btConfirmDelTask");
     btConfirmDelTask.onclick = confirmDelTask;
-
-const datDelId = document.getElementById("datDelId")
+const datDelTaskId = document.getElementById("datDelTaskId")
 
 function showDeleteTaskDialog(target) {
-    datDelId.value = target.id.match(/\d+$/)[0];
-
+    datDelTaskId.value = target.id.match(/\d+$/)[0];
     dlgDelTask.showModal();
 }
 
 function confirmDelTask() {
-    deleteTask(datDelId.value);
-    datDelId.value = "";
-
+    deleteTask(datDelTaskId.value);
+    datDelTaskId.value = "";
     renderToDisplay();
     dlgDelTask.close();
 }

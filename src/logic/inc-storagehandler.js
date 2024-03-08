@@ -1,9 +1,11 @@
 import { snapshot } from "../index.js";
+
+// implement importSnapshot filereader as promise to get rid of this
 import { renderToDisplay } from "./inc-render.js";
 
 export { loadOnStartup, saveState, importSnapshot, exportSnapshot };
 
-// Try to load data from localStorage
+// Try to load data from localStorage and initialize snapshot
 function loadOnStartup() {
     if (!localStorage.getItem("localSnapshot") == "") {
         return JSON.parse(localStorage.getItem("localSnapshot"));
@@ -31,7 +33,7 @@ function importSnapshot(fileSelector) {
         let result = JSON.parse(reader.result);
         snapshot.projects = result.projects;
         snapshot.tasks = result.tasks;
-        // implement as .then later in index.js to separate concerns:
+        // implement as promise in index.js to separate concerns:
         renderToDisplay("tasks");
     });
     reader.readAsText(fileSelector.files[0]);
@@ -50,8 +52,7 @@ function exportSnapshot(snapshot) {
             document.body.appendChild(element);
             element.click();
             document.body.removeChild(element);
-
-        document.getElementById("dlgExported").showModal();
+        
         return true;
     } else {
         return false;
