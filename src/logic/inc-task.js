@@ -41,5 +41,5 @@ function deleteTask(id) {
     const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
     snapshot.tasks.splice(taskIndex, 1);
 
-    // Needs to delete task id from project child lists as well.
+    // Needs to delete task id from project children lists as well.
 }

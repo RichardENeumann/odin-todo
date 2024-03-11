@@ -122,20 +122,40 @@ function renderProjects(projectList) {
 // Handle editing of tasks
 const dlgEditTask = document.getElementById("dlgEditTask");
 const inpEditTaskName = document.getElementById("inpEditTaskName");
+const inpEditTaskTodoDate = document.getElementById("inpEditTaskTodoDate");
+const inpEditTaskDoingDate = document.getElementById("inpEditTaskDoingDate");
+const inpEditTaskDoneDate = document.getElementById("inpEditTaskDoneDate");
+
 
 const datEditTaskId = document.getElementById("datEditTaskId");
 
 const btConfirmEditTask = document.getElementById("btConfirmEditTask");
     btConfirmEditTask.onclick = confirmUpdateTask;
 
+function convertEpochToString(date) {
+    if (date != false) {
+        const dt = new Date(date);
+        const day = ("0" + dt.getDate()).slice(-2);
+        const month = ("0" + (dt.getMonth() + 1)).slice(-2);
+        return dt.getFullYear() + "-" + month + "-" + day;
+    } else {
+        return false;
+    }
+}
 
 function showEditTaskDialog(target) {
     const taskId = target.id.match(/\d+$/)[0];
-    inpEditTaskName.value = snapshot.tasks.find(a => a.id == taskId).title;
-    
     // Put taskId into DOM for updateTask()
     datEditTaskId.value = taskId;
 
+    const taskIndex = snapshot.tasks.findIndex(a => a.id == taskId);
+    
+    // Set HTML inputs with task content
+    inpEditTaskName.value = snapshot.tasks[taskIndex].title;
+    inpEditTaskTodoDate.value = convertEpochToString(snapshot.tasks[taskIndex].todo);
+    inpEditTaskDoingDate.value = convertEpochToString(snapshot.tasks[taskIndex].doing);
+    inpEditTaskDoneDate.value = convertEpochToString(snapshot.tasks[taskIndex].done);
+    
     dlgEditTask.showModal();
 }
 

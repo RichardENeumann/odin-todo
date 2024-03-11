@@ -42,6 +42,7 @@ document.getElementById("btConfirmImport").addEventListener("click", () => {
     dlgImport.close();
 });
 
+// Export snapshot to JSON file and show confirmation dialog on success
 document.getElementById("btExport").addEventListener("click", () => {
     if (exportSnapshot(snapshot)) {
         renderToAppConsole("Exported to JSON file");
@@ -78,7 +79,8 @@ document.getElementById("btAddProject").addEventListener("click", () => {
     inpAddProjectName.value = "";
     dlgAddProject.showModal();
 });
-// Show Create New Project dialog
+
+// Show Add Project dialog
 document.getElementById("btConfirmAddProject").addEventListener("click", () => {
     if (inpAddProjectName.value != "") {
         createProject(inpAddProjectName.value);
