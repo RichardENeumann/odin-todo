@@ -111,6 +111,7 @@
     </dialog>
 
     <dialog id="dlgEditProject">
+      <data id="datEditProjectId" value=""></data>
       Edit project details:<br>
       <label for="inpEditProjectName">Title:</label>
       <input type="text" id="inpEditProjectName" maxlength="20" size="20"><br>
@@ -123,6 +124,15 @@
         <button>❌ Cancel</button>
       </form>
       <button id="btConfirmEditProject">➡️ Confirm</button>
+    </dialog>
+
+    <dialog id="dlgDelProject">
+      <data id="datDelProjectId" value=""></data>
+      Are you sure you want to delete this project?<br><br>
+      <form method="dialog">
+        <button>❌ Cancel</button>
+      </form>
+      <button id="btConfirmDelProject">➡️ Delete</button>
     </dialog>
 
   </body>

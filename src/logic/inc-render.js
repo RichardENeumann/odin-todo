@@ -1,5 +1,6 @@
 import { snapshot } from "../index.js";
-import { updateTask, deleteTask } from "./inc-task.js";
+import { editTask, deleteTask } from "./inc-task.js";
+import { editProject, deleteProject } from "./inc-project.js";
 
 export { renderToAppConsole, renderVersionNumber, renderToDisplay };
 
@@ -97,6 +98,22 @@ function renderProjects(projectList) {
             projectNode.innerText = element.title;
             projectNode.classList.add("project");
         display.appendChild(projectNode);
+
+        const btEditProject = document.createElement("button");
+            btEditProject.id = "EditProject" + element.id;
+            btEditProject.innerText = "✏️"
+            btEditProject.addEventListener("click", e => {
+                showEditProjectDialog(e.target.id.match(/\d+$/)[0]);
+            });
+        projectNode.appendChild(btEditProject);
+
+        const btDeleteProject = document.createElement("button");
+            btDeleteProject.id = "DeleteProject" + element.id;
+            btDeleteProject.innerText = "🗑️"
+            btDeleteProject.addEventListener("click", e => {
+                showDeleteProjectDialog(e.target.id.match(/\d+$/)[0]);
+            });
+        projectNode.appendChild(btDeleteProject);
         
         // Find tasks associated with project and render them
         const projectChildren = [];
@@ -138,7 +155,7 @@ function showEditTaskDialog(taskId) {
 }
 
 function confirmEditTask() {
-    updateTask(
+    editTask(
         datEditTaskId.value, 
         inpEditTaskName.value,
         inpEditTaskTodoDate.value,
@@ -168,4 +185,39 @@ function confirmDelTask() {
 
     renderToDisplay();
     dlgDelTask.close();
+}
+
+// Handle editing of projects
+const dlgEditProject = document.getElementById("dlgEditProject");
+const inpEditProjectName = document.getElementById("inpEditProjectName");
+const datEditProjectId = document.getElementById("datEditProjectId");
+
+function showEditProjectDialog(taskId) {
+    const taskIndex = snapshot.projects.findIndex(a => a.id == taskId);
+
+    // Pass taskId to DOM for updateProject()
+    datEditProjectId.value = taskId;
+    
+    // Populate dialog with task content
+    inpEditProjectName.value = snapshot.projects[taskIndex].title;
+  
+    dlgEditProject.showModal();
+}
+// Handle deleting of projects
+const dlgDelProject = document.getElementById("dlgDelProject");
+const datDelProjectId = document.getElementById("datDelProjectId")
+const btConfirmDelProject = document.getElementById("btConfirmDelProject");
+    btConfirmDelProject.onclick = confirmDelProject;
+
+function showDeleteProjectDialog(id) {
+    datDelProjectId.value = id;
+    dlgDelProject.showModal();
+}
+
+function confirmDelProject() {
+    deleteProject(datDelProjectId.value);
+    datDelProjectId.value = "";
+
+    renderToDisplay();
+    dlgDelProject.close();
 }

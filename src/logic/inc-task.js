@@ -1,6 +1,6 @@
 import { snapshot } from "../index.js";
 
-export { findUnusedId, createTask, updateTask, deleteTask };
+export { findUnusedId, createTask, editTask, deleteTask };
 
 function findUnusedId(target) {
     // target = projects or tasks
@@ -32,7 +32,7 @@ function createTask(title = "Example Task") {
     }
 }
 
-function updateTask(id, title, todo, doing, done) {
+function editTask(id, title, todo, doing, done) {
     const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
 
     snapshot.tasks[taskIndex].title = (title) ? title : "Example Task";
