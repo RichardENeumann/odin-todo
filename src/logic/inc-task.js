@@ -5,7 +5,7 @@ export { findUnusedId, createTask, updateTask, deleteTask };
 function findUnusedId(target) {
     // target = projects or tasks
     // First sort all id numbers into an array by ascending order
-    let helper = snapshot[target].toSorted((a, b) => (a.id < b.id) ? -1 : (a.id > b.id) ? 1 : 0);
+    const helper = snapshot[target].toSorted((a, b) => (a.id < b.id) ? -1 : (a.id > b.id) ? 1 : 0);
 
     // Find first unused id by comparing index to id key
     let unusedId = 0;
@@ -16,7 +16,7 @@ function findUnusedId(target) {
 }
 
 function createTask(title = "Example Task") {
-    let newTask = {
+    const newTask = {
         title, 
         "id": findUnusedId("tasks"),
         "todo" : new Date().toISOString(),  
@@ -34,8 +34,8 @@ function createTask(title = "Example Task") {
 
 function updateTask(id, title, todo, doing, done) {
     const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
-    snapshot.tasks[taskIndex].title = title;
-    
+
+    snapshot.tasks[taskIndex].title = (title) ? title : "Example Task";
     snapshot.tasks[taskIndex].todo = (todo) ? new Date(todo).toISOString() : new Date().toISOString();
     snapshot.tasks[taskIndex].doing = (doing) ? new Date(doing).toISOString() : false;
     snapshot.tasks[taskIndex].done = (done) ? new Date(done).toISOString() : false;
@@ -43,6 +43,7 @@ function updateTask(id, title, todo, doing, done) {
 
 function deleteTask(id) {
     const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
+
     snapshot.tasks.splice(taskIndex, 1);
 
     // Needs to delete task id from project children lists as well.

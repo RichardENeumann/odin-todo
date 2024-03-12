@@ -42,80 +42,68 @@ function renderToDisplay(mode = "tasks") {
         default:
             display.innerHTML = "";
             renderToAppConsole("An error has occured");
+            break;
     }
 }
 
+// This will render tasks on their own page or inside a project div
 function renderTasks(taskList, parent) {
     taskList.forEach(element => {
-        let taskNode = document.createElement("div");
+        const taskNode = document.createElement("div");
+            taskNode.classList.add("task");
+            taskNode.id = "task" + element.id;
+        parent.appendChild(taskNode);   
 
-        let taskTitle = document.createElement("div");
-        taskTitle.innerText = element.title;
+        const taskTitle = document.createElement("div");
+            taskTitle.innerText = element.title;
+        taskNode.appendChild(taskTitle);
         
-            let editButton = document.createElement("button");
-            editButton.id = "editTask" + element.id;
-            editButton.innerText = "✏️";
-            editButton.addEventListener("click", (e) => {
-                showEditTaskDialog(e.target);
+        const btEditTask = document.createElement("button");
+            btEditTask.id = "editTask" + element.id;
+            btEditTask.innerText = "✏️";
+            btEditTask.addEventListener("click", (e) => {
+                showEditTaskDialog(e.target.id.match(/\d+$/)[0]);
             });
-            taskTitle.appendChild(editButton);
+        taskTitle.appendChild(btEditTask);
 
-            const btDeleteTask = document.createElement("button");
+        const btDeleteTask = document.createElement("button");
             btDeleteTask.id = "delTask" + element.id;
             btDeleteTask.innerText = "🗑️"
             btDeleteTask.addEventListener("click", (e) => {
-                showDeleteTaskDialog(e.target);
+                showDeleteTaskDialog(e.target.id.match(/\d+$/)[0]);
             })
-            taskTitle.appendChild(btDeleteTask);
-    
-        taskNode.appendChild(taskTitle);
+        taskTitle.appendChild(btDeleteTask);
         
-        let taskTodo = document.createElement("div");
-        let todoDate = new Date(element.todo);
-        taskTodo.innerText = todoDate.getDate() + "." + 
-            (todoDate.getMonth()+1) + "." + todoDate.getFullYear();
+        const taskTodo = document.createElement("div");
+        taskTodo.innerText = (element.todo) ? 
+            new Date(element.todo).toLocaleDateString() : "-";
         taskNode.appendChild(taskTodo);
 
-        let taskDoing = document.createElement("div");
-        if (element.doing) {
-            let doingDate = new Date(element.doing);
-            taskDoing.innerText = doingDate.getDate() + "." + 
-                (doingDate.getMonth()+1) + "." + doingDate.getFullYear();
-        } else {
-            taskDoing.innerText = "X";
-        }
+        const taskDoing = document.createElement("div");
+        taskDoing.innerText = (element.doing) ? 
+            new Date(element.doing).toLocaleDateString() : "-";
         taskNode.appendChild(taskDoing);
 
-        let taskDone = document.createElement("div");
-        if (element.done) {
-            let doneDate = new Date(element.done);
-            taskDone.innerText = doneDate.getDate() + "." + 
-                (doneDate.getMonth()+1) + "." + doneDate.getFullYear();
-        } else {
-            taskDone.innerText = "X";
-        }
+        const taskDone = document.createElement("div");
+        taskDone.innerText = (element.done) ? 
+            new Date(element.done).toLocaleDateString() : "-";
         taskNode.appendChild(taskDone);
-
-        taskNode.classList.add("task");
-        taskNode.id = "task" + element.id;
-        parent.appendChild(taskNode);   
     });
 }
 
 function renderProjects(projectList) {
     projectList.forEach(element => {
-        let projectNode = document.createElement("div");
-        projectNode.innerText = element.title;
-        projectNode.classList.add("project");
+        const projectNode = document.createElement("div");
+            projectNode.innerText = element.title;
+            projectNode.classList.add("project");
+        display.appendChild(projectNode);
         
         // Find tasks associated with project and render them
-        let projectChildren = [];
+        const projectChildren = [];
         element.children.forEach(child => {
              projectChildren.push(snapshot.tasks.find(element => element.id == child));
         })
         renderTasks(projectChildren, projectNode);
-        
-        display.appendChild(projectNode);
     });
 }
 
@@ -125,22 +113,19 @@ const inpEditTaskName = document.getElementById("inpEditTaskName");
 const inpEditTaskTodoDate = document.getElementById("inpEditTaskTodoDate");
 const inpEditTaskDoingDate = document.getElementById("inpEditTaskDoingDate");
 const inpEditTaskDoneDate = document.getElementById("inpEditTaskDoneDate");
-
-
 const datEditTaskId = document.getElementById("datEditTaskId");
-
 const btConfirmEditTask = document.getElementById("btConfirmEditTask");
-    btConfirmEditTask.onclick = confirmUpdateTask;
+    btConfirmEditTask.onclick = confirmEditTask;
 
-function showEditTaskDialog(target) {
-    const taskId = target.id.match(/\d+$/)[0];
+function showEditTaskDialog(taskId) {
+    const taskIndex = snapshot.tasks.findIndex(a => a.id == taskId);
+
     // Pass taskId to DOM for updateTask()
     datEditTaskId.value = taskId;
-
-    const taskIndex = snapshot.tasks.findIndex(a => a.id == taskId);
     
     // Populate dialog with task content
     inpEditTaskName.value = snapshot.tasks[taskIndex].title;
+
     inpEditTaskTodoDate.valueAsDate = new Date(snapshot.tasks[taskIndex].todo);
 
     inpEditTaskDoingDate.valueAsDate = (snapshot.tasks[taskIndex].doing) ? 
@@ -152,7 +137,7 @@ function showEditTaskDialog(target) {
     dlgEditTask.showModal();
 }
 
-function confirmUpdateTask() {
+function confirmEditTask() {
     updateTask(
         datEditTaskId.value, 
         inpEditTaskName.value,
@@ -168,18 +153,19 @@ function confirmUpdateTask() {
 
 // Handle deleting of tasks
 const dlgDelTask = document.getElementById("dlgDelTask");
+const datDelTaskId = document.getElementById("datDelTaskId")
 const btConfirmDelTask = document.getElementById("btConfirmDelTask");
     btConfirmDelTask.onclick = confirmDelTask;
-const datDelTaskId = document.getElementById("datDelTaskId")
 
-function showDeleteTaskDialog(target) {
-    datDelTaskId.value = target.id.match(/\d+$/)[0];
+function showDeleteTaskDialog(id) {
+    datDelTaskId.value = id;
     dlgDelTask.showModal();
 }
 
 function confirmDelTask() {
     deleteTask(datDelTaskId.value);
     datDelTaskId.value = "";
+
     renderToDisplay();
     dlgDelTask.close();
 }
