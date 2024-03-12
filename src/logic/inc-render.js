@@ -191,18 +191,39 @@ function confirmDelTask() {
 const dlgEditProject = document.getElementById("dlgEditProject");
 const inpEditProjectName = document.getElementById("inpEditProjectName");
 const datEditProjectId = document.getElementById("datEditProjectId");
+const selEditProjectChildren = document.getElementById("selEditProjectChildren");
+const selAddProjectChildren = document.getElementById("selAddProjectChildren");
 
 function showEditProjectDialog(taskId) {
-    const taskIndex = snapshot.projects.findIndex(a => a.id == taskId);
+    const taskIndex = snapshot.projects.findIndex(el => el.id == taskId);
 
-    // Pass taskId to DOM for updateProject()
+    // Pass project id to DOM for updateProject()
     datEditProjectId.value = taskId;
     
     // Populate dialog with task content
     inpEditProjectName.value = snapshot.projects[taskIndex].title;
+
+    const candidateList = snapshot.tasks.filter(el => 
+        !snapshot.projects[taskIndex].children.includes(el.id));
+    renderTasksToListbox(candidateList, selAddProjectChildren);
   
+    const childList = snapshot.tasks.filter(el => 
+        snapshot.projects[taskIndex].children.includes(el.id));
+    renderTasksToListbox(childList, selEditProjectChildren);
+
     dlgEditProject.showModal();
 }
+
+function renderTasksToListbox(taskList, parent) {
+    parent.innerHTML = "";
+    taskList.forEach(el => {
+        const task = document.createElement("option");
+        task.value = el.id;
+        task.innerText = el.title;
+        parent.appendChild(task);
+    })
+}
+
 // Handle deleting of projects
 const dlgDelProject = document.getElementById("dlgDelProject");
 const datDelProjectId = document.getElementById("datDelProjectId")
@@ -218,6 +239,6 @@ function confirmDelProject() {
     deleteProject(datDelProjectId.value);
     datDelProjectId.value = "";
 
-    renderToDisplay();
+    renderToDisplay("projects");
     dlgDelProject.close();
 }

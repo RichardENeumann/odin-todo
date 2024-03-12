@@ -116,10 +116,17 @@
       <label for="inpEditProjectName">Title:</label>
       <input type="text" id="inpEditProjectName" maxlength="20" size="20"><br>
 
-      <select id="selEditProjectChildren" multiple="multiple">
-        <option value="1">Task</option>
-      </select><br>
-      
+      <div class="editChildren">
+        <select id="selAddProjectChildren" multiple="multiple">
+        </select><br>
+        <div>
+          <button id="btAddToProject">&raquo;</button><br>
+          <button id="btDeleteFromProject">&laquo;</button><br>
+        </div>
+        <select id="selEditProjectChildren" multiple="multiple">
+        </select><br>
+      </div>
+
       <form method="dialog">
         <button>❌ Cancel</button>
       </form>
