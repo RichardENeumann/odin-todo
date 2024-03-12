@@ -116,10 +116,8 @@ function renderProjects(projectList) {
         projectNode.appendChild(btDeleteProject);
         
         // Find tasks associated with project and render them
-        const projectChildren = [];
-        element.children.forEach(child => {
-             projectChildren.push(snapshot.tasks.find(element => element.id == child));
-        })
+        const projectChildren = snapshot.tasks.filter(el =>
+            element.children.includes(el.id));
         renderTasks(projectChildren, projectNode);
     });
 }
@@ -135,7 +133,7 @@ const btConfirmEditTask = document.getElementById("btConfirmEditTask");
     btConfirmEditTask.onclick = confirmEditTask;
 
 function showEditTaskDialog(taskId) {
-    const taskIndex = snapshot.tasks.findIndex(a => a.id == taskId);
+    const taskIndex = snapshot.tasks.findIndex(el => el.id == taskId);
 
     // Pass taskId to DOM for updateTask()
     datEditTaskId.value = taskId;
