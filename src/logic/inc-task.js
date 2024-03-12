@@ -32,9 +32,13 @@ function createTask(title = "Example Task") {
     }
 }
 
-function updateTask(id, title) {
+function updateTask(id, title, todo, doing, done) {
     const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
     snapshot.tasks[taskIndex].title = title;
+    
+    snapshot.tasks[taskIndex].todo = (todo) ? new Date(todo).toISOString() : new Date().toISOString();
+    snapshot.tasks[taskIndex].doing = (doing) ? new Date(doing).toISOString() : false;
+    snapshot.tasks[taskIndex].done = (done) ? new Date(done).toISOString() : false;
 }
 
 function deleteTask(id) {
