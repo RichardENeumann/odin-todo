@@ -18,13 +18,15 @@ function createProject(title = "Example Project") {
     }
 }
 
-function editProject() {
-    console.log("Edit project");
+function editProject(id, title, children) {
+    const projectIndex = snapshot.projects.findIndex(el => el.id == id);
+    
+    snapshot.projects[projectIndex].title = (title) ? title : "Example Project";
+    snapshot.projects[projectIndex].children = (children) ? children : [];
 }
 
-
 function deleteProject(id) {
-    const projectIndex = snapshot.projects.findIndex(element => element.id == id);
+    const projectIndex = snapshot.projects.findIndex(el => el.id == id);
 
     snapshot.projects.splice(projectIndex, 1);
 }

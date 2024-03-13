@@ -12,7 +12,7 @@ function renderToAppConsole(message) {
 
 function renderVersionNumber(version) {
     let versionDisplay = document.getElementsByClassName("version");
-    Array.from(versionDisplay).forEach(element => element.innerText = version);
+    Array.from(versionDisplay).forEach(el => el.innerText = version);
 }
 
 // Show either tasks or projects on screen
@@ -49,18 +49,18 @@ function renderToDisplay(mode = "tasks") {
 
 // This will render tasks on their own page or inside a project div
 function renderTasks(taskList, parent) {
-    taskList.forEach(element => {
+    taskList.forEach(el => {
         const taskNode = document.createElement("div");
             taskNode.classList.add("task");
-            taskNode.id = "task" + element.id;
+            taskNode.id = "task" + el.id;
         parent.appendChild(taskNode);   
 
         const taskTitle = document.createElement("div");
-            taskTitle.innerText = element.title;
+            taskTitle.innerText = el.title;
         taskNode.appendChild(taskTitle);
         
         const btEditTask = document.createElement("button");
-            btEditTask.id = "editTask" + element.id;
+            btEditTask.id = "editTask" + el.id;
             btEditTask.innerText = "✏️";
             btEditTask.addEventListener("click", (e) => {
                 showEditTaskDialog(e.target.id.match(/\d+$/)[0]);
@@ -68,7 +68,7 @@ function renderTasks(taskList, parent) {
         taskTitle.appendChild(btEditTask);
 
         const btDeleteTask = document.createElement("button");
-            btDeleteTask.id = "delTask" + element.id;
+            btDeleteTask.id = "delTask" + el.id;
             btDeleteTask.innerText = "🗑️"
             btDeleteTask.addEventListener("click", (e) => {
                 showDeleteTaskDialog(e.target.id.match(/\d+$/)[0]);
@@ -76,31 +76,31 @@ function renderTasks(taskList, parent) {
         taskTitle.appendChild(btDeleteTask);
         
         const taskTodo = document.createElement("div");
-        taskTodo.innerText = (element.todo) ? 
-            new Date(element.todo).toLocaleDateString() : "-";
+        taskTodo.innerText = (el.todo) ? 
+            new Date(el.todo).toLocaleDateString() : "-";
         taskNode.appendChild(taskTodo);
 
         const taskDoing = document.createElement("div");
-        taskDoing.innerText = (element.doing) ? 
-            new Date(element.doing).toLocaleDateString() : "-";
+        taskDoing.innerText = (el.doing) ? 
+            new Date(el.doing).toLocaleDateString() : "-";
         taskNode.appendChild(taskDoing);
 
         const taskDone = document.createElement("div");
-        taskDone.innerText = (element.done) ? 
-            new Date(element.done).toLocaleDateString() : "-";
+        taskDone.innerText = (el.done) ? 
+            new Date(el.done).toLocaleDateString() : "-";
         taskNode.appendChild(taskDone);
     });
 }
 
 function renderProjects(projectList) {
-    projectList.forEach(element => {
+    projectList.forEach(el => {
         const projectNode = document.createElement("div");
-            projectNode.innerText = element.title;
+            projectNode.innerText = el.title;
             projectNode.classList.add("project");
         display.appendChild(projectNode);
 
         const btEditProject = document.createElement("button");
-            btEditProject.id = "EditProject" + element.id;
+            btEditProject.id = "EditProject" + el.id;
             btEditProject.innerText = "✏️"
             btEditProject.addEventListener("click", e => {
                 showEditProjectDialog(e.target.id.match(/\d+$/)[0]);
@@ -108,7 +108,7 @@ function renderProjects(projectList) {
         projectNode.appendChild(btEditProject);
 
         const btDeleteProject = document.createElement("button");
-            btDeleteProject.id = "DeleteProject" + element.id;
+            btDeleteProject.id = "DeleteProject" + el.id;
             btDeleteProject.innerText = "🗑️"
             btDeleteProject.addEventListener("click", e => {
                 showDeleteProjectDialog(e.target.id.match(/\d+$/)[0]);
@@ -117,7 +117,7 @@ function renderProjects(projectList) {
         
         // Find tasks associated with project and render them
         const projectChildren = snapshot.tasks.filter(el =>
-            element.children.includes(el.id));
+            el.children.includes(el.id));
         renderTasks(projectChildren, projectNode);
     });
 }
@@ -192,6 +192,13 @@ const datEditProjectId = document.getElementById("datEditProjectId");
 const selEditProjectChildren = document.getElementById("selEditProjectChildren");
 const selAddProjectChildren = document.getElementById("selAddProjectChildren");
 
+
+
+const btConfirmEditProject = document.getElementById("btConfirmEditProject");
+    btConfirmEditProject.onclick = confirmEditProject;
+
+
+
 function showEditProjectDialog(taskId) {
     const taskIndex = snapshot.projects.findIndex(el => el.id == taskId);
 
@@ -220,6 +227,21 @@ function renderTasksToListbox(taskList, parent) {
         task.innerText = el.title;
         parent.appendChild(task);
     })
+}
+
+function confirmEditProject() {
+    const children = [];
+    Array.from(selEditProjectChildren.options).forEach(el => children.push(+el.value));
+    
+    editProject(
+        datEditProjectId.value,
+        inpEditProjectName.value,
+        children
+    );
+    datEditProjectId.value = "";
+
+    renderToDisplay("projects");
+    dlgEditProject.close();
 }
 
 // Handle deleting of projects

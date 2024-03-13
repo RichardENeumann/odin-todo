@@ -1,13 +1,13 @@
 {
     "projects": [
             {
-                "title": "Star Wars",
                 "id": 4,
+                "title": "Star Wars",
                 "children": [0, 1]
             },
             {
-                "title": "Lord of the Rings",
                 "id": 1,
+                "title": "Lord of the Rings",
                 "children": [4, 0]
             }
         ],

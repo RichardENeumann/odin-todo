@@ -33,7 +33,7 @@ function createTask(title = "Example Task") {
 }
 
 function editTask(id, title, todo, doing, done) {
-    const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
+    const taskIndex = snapshot.tasks.findIndex(el => el.id == id);
 
     snapshot.tasks[taskIndex].title = (title) ? title : "Example Task";
     snapshot.tasks[taskIndex].todo = (todo) ? new Date(todo).toISOString() : new Date().toISOString();
@@ -42,16 +42,16 @@ function editTask(id, title, todo, doing, done) {
 }
 
 function deleteTask(id) {
-    const taskIndex = snapshot.tasks.findIndex(element => element.id == id);
+    const taskIndex = snapshot.tasks.findIndex(el => el.id == id);
 
     // Remove from tasks list
     snapshot.tasks.splice(taskIndex, 1);
     
     // Remove from projects' children lists
-    snapshot.projects.forEach(element => {
-        const i = element.children.indexOf(+id);
+    snapshot.projects.forEach(el => {
+        const i = el.children.indexOf(+id);
         if (i > -1) {
-            element.children.splice(i, 1);
+            el.children.splice(i, 1);
         }
     });
 }
