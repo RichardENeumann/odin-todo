@@ -116,8 +116,8 @@ function renderProjects(projectList) {
         projectNode.appendChild(btDeleteProject);
         
         // Find tasks associated with project and render them
-        const projectChildren = snapshot.tasks.filter(el =>
-            el.children.includes(el.id));
+        const projectChildren = snapshot.tasks.filter(el2 =>
+            el.children.includes(el2.id));
         renderTasks(projectChildren, projectNode);
     });
 }
@@ -192,12 +192,12 @@ const datEditProjectId = document.getElementById("datEditProjectId");
 const selEditProjectChildren = document.getElementById("selEditProjectChildren");
 const selAddProjectChildren = document.getElementById("selAddProjectChildren");
 
-
-
+const btAddToProject = document.getElementById("btAddToProject");
+    btAddToProject.onclick = AddToProject;
+const btRemoveFromProject = document.getElementById("btRemoveFromProject");
+    btRemoveFromProject.onclick = RemoveFromProject;
 const btConfirmEditProject = document.getElementById("btConfirmEditProject");
     btConfirmEditProject.onclick = confirmEditProject;
-
-
 
 function showEditProjectDialog(taskId) {
     const taskIndex = snapshot.projects.findIndex(el => el.id == taskId);
@@ -227,6 +227,20 @@ function renderTasksToListbox(taskList, parent) {
         task.innerText = el.title;
         parent.appendChild(task);
     })
+}
+
+function AddToProject() {
+    Array.from(selAddProjectChildren.selectedOptions).forEach(el =>
+        selEditProjectChildren.appendChild(el));
+    Array.from(selEditProjectChildren.selectedOptions).forEach(el =>
+        el.selected = false);
+}
+
+function RemoveFromProject() {
+    Array.from(selEditProjectChildren.selectedOptions).forEach(el =>
+        selAddProjectChildren.appendChild(el));
+    Array.from(selAddProjectChildren.selectedOptions).forEach(el => 
+        el.selected = false);
 }
 
 function confirmEditProject() {
