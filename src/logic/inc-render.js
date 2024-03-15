@@ -23,7 +23,7 @@ function renderToDisplay() {
             display.classList.add("showTasks");
             display.innerHTML = "";
             const btSort = document.createElement("button");
-            btSort.innerText = "Sort:";
+            btSort.innerText = "⤵️";
             btSort.addEventListener("click", () => {
                 snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
                 renderToDisplay();
@@ -139,6 +139,14 @@ function renderProjects(projectList) {
                 showDeleteProjectDialog(e.target.id.match(/\d+$/)[0]);
             });
         titleNode.appendChild(btDeleteProject);
+
+        const btSort = document.createElement("button");
+            btSort.innerText = "⤵️";
+            btSort.addEventListener("click", () => {
+                snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
+                renderToDisplay();
+            })
+            titleNode.appendChild(btSort);
         
         // Find tasks associated with project and render them
         const projectChildren = snapshot.tasks.filter(el2 =>
