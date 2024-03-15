@@ -33,8 +33,9 @@ function importSnapshot(fileSelector) {
         let result = JSON.parse(reader.result);
         snapshot.projects = result.projects;
         snapshot.tasks = result.tasks;
+        snapshot.options = result.options;
         // implement as promise in index.js to separate concerns:
-        renderToDisplay("tasks");
+        renderToDisplay();
     });
     reader.readAsText(fileSelector.files[0]);
 }

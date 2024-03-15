@@ -16,8 +16,8 @@ function renderVersionNumber(version) {
 }
 
 // Show either tasks or projects on screen
-function renderToDisplay(mode = "tasks") {
-    switch (mode) {
+function renderToDisplay() {
+    switch (snapshot.options.view) {
         case "tasks": {
             display.classList.remove("showProjects");
             display.classList.add("showTasks");
@@ -77,10 +77,10 @@ function renderTasks(taskList, parent) {
 
         const taskState = document.createElement("div");
         taskState.innerText = (el.done) ? 
-            new Date(el.todo).toLocaleDateString() + "🟢" : 
+            new Date(el.todo).toLocaleDateString() + " 🟢" : 
                 (el.doing) ? 
-                new Date(el.doing).toLocaleDateString() + "🟡" :
-                    new Date(el.todo).toLocaleDateString() + "🔴";
+                new Date(el.doing).toLocaleDateString() + " 🟡" :
+                    new Date(el.todo).toLocaleDateString() + " 🔴";
         taskNode.appendChild(taskState);
     });
 }
@@ -88,9 +88,12 @@ function renderTasks(taskList, parent) {
 function renderProjects(projectList) {
     projectList.forEach(el => {
         const projectNode = document.createElement("div");
-            projectNode.innerText = el.title;
             projectNode.classList.add("project");
         display.appendChild(projectNode);
+
+        const titleNode = document.createElement("div");
+            titleNode.innerText = el.title;
+        projectNode.appendChild(titleNode);
 
         const btEditProject = document.createElement("button");
             btEditProject.id = "EditProject" + el.id;
@@ -98,7 +101,7 @@ function renderProjects(projectList) {
             btEditProject.addEventListener("click", e => {
                 showEditProjectDialog(e.target.id.match(/\d+$/)[0]);
             });
-        projectNode.appendChild(btEditProject);
+        titleNode.appendChild(btEditProject);
 
         const btDeleteProject = document.createElement("button");
             btDeleteProject.id = "DeleteProject" + el.id;
@@ -106,7 +109,7 @@ function renderProjects(projectList) {
             btDeleteProject.addEventListener("click", e => {
                 showDeleteProjectDialog(e.target.id.match(/\d+$/)[0]);
             });
-        projectNode.appendChild(btDeleteProject);
+        titleNode.appendChild(btDeleteProject);
         
         // Find tasks associated with project and render them
         const projectChildren = snapshot.tasks.filter(el2 =>

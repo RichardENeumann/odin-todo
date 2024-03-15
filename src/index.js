@@ -10,8 +10,8 @@ import { renderToAppConsole, renderVersionNumber, renderToDisplay,  } from "./lo
 export { snapshot };
 
 // Initialize
-let snapshot = loadOnStartup();
-renderVersionNumber("v0.2.0");
+const snapshot = loadOnStartup();
+renderVersionNumber("v0.2.2");
 renderToAppConsole("Status nominal");
 renderToDisplay();
 
@@ -85,17 +85,19 @@ document.getElementById("btConfirmAddProject").addEventListener("click", () => {
     if (inpAddProjectName.value != "") {
         createProject(inpAddProjectName.value);
         renderToAppConsole("Project created successfully");
-        renderToDisplay("projects");
+        renderToDisplay();
     }
     dlgAddProject.close();    
 });
 
 // Righthand group
 document.getElementById("btShowProjects").addEventListener("click", () => {
-    renderToDisplay("projects");
+    snapshot.options.view = "projects";
+    renderToDisplay();
 });
 
 document.getElementById("btShowTasks").addEventListener("click", () => {
+    snapshot.options.view = "tasks";
     renderToDisplay();
 });
 
