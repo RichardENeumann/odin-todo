@@ -12,48 +12,50 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    font-family: 'Courier New', Courier, monospace;
+    font-family: Arial, Helvetica, sans-serif;
     font-size: 16px;
+    background: rgb(255,255,255);
+    background: linear-gradient(130deg, rgba(255,255,255,1) 0%, rgba(198,228,218,1) 100%);
+}
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+.logo {
+    /* font-family: "Bagnard Regular"; */
+    padding: 16px;
+    font-weight: bolder;
+    font-size: 3rem;
+    font-style: italic;
+    color: darkcyan;
+}
+nav {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+.uiButtons {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+}
+.addButtons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
 }
 button {
     padding: 4px;
     border: none;
     border-radius: 4px;
+    background-color: lightgrey;
     font-size: 1rem;
-}
-header {
-    text-align: center;
-    padding: 12px;
-}
-.logo {
-    margin: 16px;
-    font-weight: bolder;
-    font-size: 3rem;
-    font-style: italic;
-    color: darkcyan;
-    font-family: 'Times New Roman', Times, serif;
-}
-.uiButtons {
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 6px;
-}
-.addButtons {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 }
 main {
     flex-grow: 1;
-}
-.display {
-    display: flex;
-    flex-direction: column;
-}
-.display > div {
-    border-radius: 8px;
 }
 main button {
     background-color: transparent;
@@ -62,6 +64,7 @@ footer {
     display: flex;
     justify-content: space-between;
     padding: 4px 16px;
+    font-family: 'Times New Roman', Times, serif;
     font-size: 1rem;
     font-style: italic;
 }
@@ -70,7 +73,8 @@ dialog {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid black;
+    border: none;
+    border-radius: 8px;
     padding: 24px;
     background-color: white;
     line-height: 24px;
@@ -84,13 +88,13 @@ dialog::backdrop {
 }
 .showProjects {
     display: flex;
-    flex-direction: row;
-    gap: 16px;
-    padding: 24px;
+    flex-direction: column;
+    gap: 12px;
+    padding: 24px 16px;
 }
 .project {
-    border-radius: 8px;
     padding: 8px;
+    border-radius: 8px;
     background-color: grey;
     font-size: 1rem;
     font-weight: bold;

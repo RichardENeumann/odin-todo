@@ -74,21 +74,14 @@ function renderTasks(taskList, parent) {
                 showDeleteTaskDialog(e.target.id.match(/\d+$/)[0]);
             })
         taskTitle.appendChild(btDeleteTask);
-        
-        const taskTodo = document.createElement("div");
-        taskTodo.innerText = (el.todo) ? 
-            new Date(el.todo).toLocaleDateString() : "-";
-        taskNode.appendChild(taskTodo);
 
-        const taskDoing = document.createElement("div");
-        taskDoing.innerText = (el.doing) ? 
-            new Date(el.doing).toLocaleDateString() : "-";
-        taskNode.appendChild(taskDoing);
-
-        const taskDone = document.createElement("div");
-        taskDone.innerText = (el.done) ? 
-            new Date(el.done).toLocaleDateString() : "-";
-        taskNode.appendChild(taskDone);
+        const taskState = document.createElement("div");
+        taskState.innerText = (el.done) ? 
+            new Date(el.todo).toLocaleDateString() + "🟢" : 
+                (el.doing) ? 
+                new Date(el.doing).toLocaleDateString() + "🟡" :
+                    new Date(el.todo).toLocaleDateString() + "🔴";
+        taskNode.appendChild(taskState);
     });
 }
 

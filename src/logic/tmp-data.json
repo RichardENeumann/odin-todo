@@ -1,7 +1,6 @@
 {
     "options": {
-        "view": "projects",
-        "showTasksInProjectView": false
+        "view": "projects"
     },
     "projects": [
             {
