@@ -1,6 +1,8 @@
 "use strict";
 
 import "./style/main.css";
+import "./style/tablet.css";
+import "./style/desktop.css";
 
 import { loadOnStartup, saveState, importSnapshot, exportSnapshot } from "./logic/inc-storagehandler.js";
 import { createTask } from "./logic/inc-task.js";
@@ -11,7 +13,7 @@ export { snapshot };
 
 // Initialize
 const snapshot = loadOnStartup();
-renderVersionNumber("v0.2.3");
+renderVersionNumber("v0.2.4");
 renderToAppConsole("Status nominal");
 renderToDisplay();
 

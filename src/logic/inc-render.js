@@ -21,23 +21,22 @@ function renderToDisplay() {
         case "tasks": {
             display.classList.remove("showProjects");
             display.classList.add("showTasks");
-            if ("tasks" in snapshot) {
-                display.innerHTML = "";
-                renderTasks(snapshot.tasks, display);
-            } else {
-                display.innerHTML = "No tasks"
-            }
+            display.innerHTML = "";
+            const btSort = document.createElement("button");
+            btSort.innerText = "Sort:";
+            btSort.addEventListener("click", () => {
+                snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
+                renderToDisplay();
+            })
+            display.appendChild(btSort);
+            renderTasks(snapshot.tasks, display);
             break;
         }
         case "projects": {
             display.classList.remove("showTasks");
             display.classList.add("showProjects");
-            if ("projects" in snapshot) {
-                display.innerHTML = "";
-                renderProjects(snapshot.projects);
-            } else {
-                display.innerHTML = "No projects";
-            }
+            display.innerHTML = "";
+            renderProjects(snapshot.projects);
             break;
         }
         default:
@@ -49,6 +48,36 @@ function renderToDisplay() {
 
 // This will render tasks on their own page or inside a project div
 function renderTasks(taskList, parent) {
+
+    // Sort taskList by degree of completeness, using all three date fields
+    taskList.sort((a,b) => {
+        if (a.done) {
+            if (b.done) {
+                const x = new Date(a.done).getTime();
+                const y = new Date(b.done).getTime();
+                return (x > y) ? -1 : (x < y) ? 1 : 0;
+            } else return -1;
+        } else if (b.done) {
+            return 1;
+        }
+        if (a.doing) {
+            if (b.doing) {
+                const x = new Date(a.doing).getTime();
+                const y = new Date(b.doing).getTime();
+                return (x > y) ? -1 : (x < y) ? 1 : 0;
+            } else return -1;
+        } else if (b.doing) {
+            return 1;
+        }
+        const x = new Date(a.todo).getTime();
+        const y = new Date(b.todo).getTime();
+        return (x > y) ? -1 : (x < y) ? 1 : 0;
+    });
+    
+    if (snapshot.options.sortAscending) {
+        taskList = taskList.reverse();    
+    }
+
     taskList.forEach(el => {
         const taskNode = document.createElement("div");
             taskNode.classList.add("task");
@@ -77,7 +106,7 @@ function renderTasks(taskList, parent) {
 
         const taskState = document.createElement("div");
         taskState.innerText = (el.done) ? 
-            new Date(el.todo).toLocaleDateString() + " 🟢" : 
+            new Date(el.done).toLocaleDateString() + " 🟢" : 
                 (el.doing) ? 
                 new Date(el.doing).toLocaleDateString() + " 🟡" :
                     new Date(el.todo).toLocaleDateString() + " 🔴";

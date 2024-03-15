@@ -1,6 +1,7 @@
 {
     "options": {
-        "view": "projects"
+        "view": "projects",
+        "sortAscending": true
     },
     "projects": [
             {
