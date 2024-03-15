@@ -226,7 +226,7 @@ function renderTasksToListbox(taskList, parent) {
         task.value = el.id;
         task.innerText = el.title;
         parent.appendChild(task);
-    })
+    });
 }
 
 function AddToProject() {

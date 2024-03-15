@@ -1,4 +1,8 @@
 {
+    "options": {
+        "view": "projects",
+        "showTasksInProjectView": false
+    },
     "projects": [
             {
                 "id": 4,
