@@ -45,12 +45,14 @@
       <button id="btConfirmImport">➡️ Import</button>
     </dialog>
 
+
     <dialog id="dlgExportSuccess">
       A snapshot has been saved to your download folder.<br><br>
       <form method="dialog">
         <button>Close</button>
       </form>
     </dialog>
+
 
     <dialog id="dlgAddTask">
       Enter the task name:
@@ -61,6 +63,7 @@
       <button id="btConfirmAddTask">➡️ Add</button>
     </dialog>
 
+
     <dialog id="dlgAddProject">
       Enter the project name:
       <input type="text" id="inpAddProjectName" maxlength="20" size="20"><br><br>
@@ -69,6 +72,7 @@
       </form>
       <button id="btConfirmAddProject">➡️ Add</button>
     </dialog>
+
 
     <dialog id="dlgAbout">
       <b>tada!</b> <i class="version">v0.0.1</i><br>
@@ -79,26 +83,30 @@
       </form>
     </dialog>
 
+
     <dialog id="dlgEditTask">
       <data id="datEditTaskId" value=""></data>
-      Edit task details:<br>
-      <label for="inpEditTaskName">Title:</label>
-      <input type="text" id="inpEditTaskName" maxlength="20" size="20"><br>
-
-      <label for="inpEditTaskTodoDate">Creation date:</label>
-      <input type="date" id="inpEditTaskTodoDate"><br>
-
-      <label for="inpEditTaskDoingDate">Start date:</label>
-      <input type="date" id="inpEditTaskDoingDate"><br>
-
-      <label for="inpEditTaskDoneDate">Complete date:</label>
-      <input type="date" id="inpEditTaskDoneDate"><br>
+      <h2>Edit task details:</h2><br>
+      <div class="dlgEditTaskInputBlock">
+        <label for="inpEditTaskName">Title:</label>
+        <input type="text" id="inpEditTaskName" maxlength="20" size="20">
+      
+        <label for="inpEditTaskTodoDate">Creation date:</label>  
+        <input type="date" id="inpEditTaskTodoDate">
+     
+        <label for="inpEditTaskDoingDate">Start date:</label>
+        <input type="date" id="inpEditTaskDoingDate">
+      
+        <label for="inpEditTaskDoneDate">End date:</label>
+        <input type="date" id="inpEditTaskDoneDate">
+      </div>
       <form method="dialog">
         <button>❌ Cancel</button>
       </form>
       <button id="btConfirmEditTask">➡️ Edit</button>
     </dialog>
     
+
     <dialog id="dlgDelTask">
       <data id="datDelTaskId" value=""></data>
       Are you sure you want to delete this task?<br><br>
@@ -108,21 +116,25 @@
       <button id="btConfirmDelTask">➡️ Delete</button>
     </dialog>
 
+
     <dialog id="dlgEditProject">
       <data id="datEditProjectId" value=""></data>
-      Edit project details:<br>
-      <label for="inpEditProjectName">Title:</label>
-      <input type="text" id="inpEditProjectName" maxlength="20" size="20"><br>
+      <h2>Edit project details:</h2>
 
-      <div class="editChildren">
-        <select id="selAddProjectChildren" multiple="multiple">
-        </select><br>
-        <div>
-          <button id="btAddToProject">&raquo;</button><br>
-          <button id="btRemoveFromProject">&laquo;</button><br>
+      <div class="dlgEditProjectInputBlock">
+        <label for="inpEditProjectName">Title:</label>
+        <input type="text" id="inpEditProjectName" maxlength="20" size="20"><br>
+
+        <div class="editChildren">
+          <select id="selAddProjectChildren" multiple="multiple">
+          </select>
+          <div>
+            <button id="btAddToProject">&raquo;</button><br>
+            <button id="btRemoveFromProject">&laquo;</button><br>
+          </div>
+          <select id="selEditProjectChildren" multiple="multiple">
+          </select>
         </div>
-        <select id="selEditProjectChildren" multiple="multiple">
-        </select><br>
       </div>
 
       <form method="dialog">
@@ -130,6 +142,7 @@
       </form>
       <button id="btConfirmEditProject">➡️ Confirm</button>
     </dialog>
+
 
     <dialog id="dlgDelProject">
       <data id="datDelProjectId" value=""></data>

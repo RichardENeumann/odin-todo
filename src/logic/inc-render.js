@@ -158,6 +158,7 @@ function confirmEditTask() {
     );
     datEditTaskId.value = "";
 
+    renderToAppConsole("Task edited successfully");
     renderToDisplay();
     dlgEditTask.close();
 }
@@ -177,6 +178,7 @@ function confirmDelTask() {
     deleteTask(datDelTaskId.value);
     datDelTaskId.value = "";
 
+    renderToAppConsole("Task deleted successfully");
     renderToDisplay();
     dlgDelTask.close();
 }
@@ -250,7 +252,8 @@ function confirmEditProject() {
     );
     datEditProjectId.value = "";
 
-    renderToDisplay("projects");
+    renderToAppConsole("Project edited successfully");
+    renderToDisplay();
     dlgEditProject.close();
 }
 
@@ -269,6 +272,7 @@ function confirmDelProject() {
     deleteProject(datDelProjectId.value);
     datDelProjectId.value = "";
 
-    renderToDisplay("projects");
+    renderToAppConsole("Project deleted successfully");
+    renderToDisplay();
     dlgDelProject.close();
 }
