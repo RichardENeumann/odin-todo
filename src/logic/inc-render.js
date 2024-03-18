@@ -33,7 +33,7 @@ function renderToDisplay() {
                 btSort.addEventListener("click", () => {
                     snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
                     renderToDisplay();
-                })
+                });
                 sortContainer.appendChild(btSort);
             }
 
@@ -106,10 +106,10 @@ function renderTasks(taskList, parent) {
 
         const btDeleteTask = document.createElement("button");
             btDeleteTask.id = "delTask" + el.id;
-            btDeleteTask.innerText = "🗑️"
+            btDeleteTask.innerText = "🗑️";
             btDeleteTask.addEventListener("click", (e) => {
                 showDeleteTaskDialog(e.target.id.match(/\d+$/)[0]);
-            })
+            });
         taskTitle.appendChild(btDeleteTask);
 
         const taskState = document.createElement("div");
@@ -138,7 +138,7 @@ function renderProjects(projectList) {
 
         const btEditProject = document.createElement("button");
             btEditProject.id = "EditProject" + el.id;
-            btEditProject.innerText = "✏️"
+            btEditProject.innerText = "✏️";
             btEditProject.addEventListener("click", e => {
                 showEditProjectDialog(e.target.id.match(/\d+$/)[0]);
             });
@@ -146,7 +146,7 @@ function renderProjects(projectList) {
 
         const btDeleteProject = document.createElement("button");
             btDeleteProject.id = "DeleteProject" + el.id;
-            btDeleteProject.innerText = "🗑️"
+            btDeleteProject.innerText = "🗑️";
             btDeleteProject.addEventListener("click", e => {
                 showDeleteProjectDialog(e.target.id.match(/\d+$/)[0]);
             });
@@ -157,7 +157,7 @@ function renderProjects(projectList) {
             btSort.addEventListener("click", () => {
                 snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
                 renderToDisplay();
-            })
+            });
         titleNode.appendChild(btSort);
         
         // Find tasks associated with project and render them
@@ -214,7 +214,7 @@ function confirmEditTask() {
 
 // Handle deleting of tasks
 const dlgDelTask = document.getElementById("dlgDelTask");
-const datDelTaskId = document.getElementById("datDelTaskId")
+const datDelTaskId = document.getElementById("datDelTaskId");
 const btConfirmDelTask = document.getElementById("btConfirmDelTask");
     btConfirmDelTask.onclick = confirmDelTask;
 
@@ -308,7 +308,7 @@ function confirmEditProject() {
 
 // Handle deleting of projects
 const dlgDelProject = document.getElementById("dlgDelProject");
-const datDelProjectId = document.getElementById("datDelProjectId")
+const datDelProjectId = document.getElementById("datDelProjectId");
 const btConfirmDelProject = document.getElementById("btConfirmDelProject");
     btConfirmDelProject.onclick = confirmDelProject;
 

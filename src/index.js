@@ -36,7 +36,7 @@ document.getElementById("btImport").addEventListener("click", () => dlgImport.sh
 document.getElementById("btConfirmImport").addEventListener("click", () => {
     const fileSelector = document.getElementById("fileSelector");
     if (fileSelector.files.length != 0) { 
-        importSnapshot(fileSelector)
+        importSnapshot(fileSelector);
         renderToAppConsole("Snapshot imported");
     } else {
         renderToAppConsole("Nothing to import");

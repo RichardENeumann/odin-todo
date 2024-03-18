@@ -7,7 +7,7 @@ export { loadOnStartup, saveState, importSnapshot, exportSnapshot };
 
 // Try to load data from localStorage and initialize snapshot
 function loadOnStartup() {
-    if (!localStorage.getItem("localSnapshot") == "") {
+    if (localStorage.getItem("localSnapshot") != "") {
         return JSON.parse(localStorage.getItem("localSnapshot"));
     } else {
         return {
@@ -17,7 +17,7 @@ function loadOnStartup() {
             },
             "projects": [],
             "tasks": []
-        }
+        };
     }
 }
 
