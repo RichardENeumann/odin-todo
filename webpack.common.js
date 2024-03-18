@@ -14,18 +14,6 @@ module.exports = {
             test: /\.css$/i,
             use: ["style-loader", "css-loader"]
           },
-          {
-            test: /\.otf$/i,
-            use: [
-              {
-                loader: "file-loader",
-                options: {
-                  name: "[name].[ext]",
-                  outputPath: "style"
-                }
-              }
-            ]
-          }
         ]
       }
 };

@@ -23,17 +23,19 @@ function renderToDisplay() {
             display.classList.add("showTasks");
             display.innerHTML = "";
 
-            const sortContainer = document.createElement("div");
-            sortContainer.id = "btSortTaskView";
-            display.appendChild(sortContainer);
+            if (snapshot.tasks.length != 0) {
+                const sortContainer = document.createElement("div");
+                sortContainer.id = "btSortTaskView";
+                display.appendChild(sortContainer);
 
-            const btSort = document.createElement("button");
-            btSort.innerText = "⤵️";
-            btSort.addEventListener("click", () => {
-                snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
-                renderToDisplay();
-            })
-            sortContainer.appendChild(btSort);
+                const btSort = document.createElement("button");
+                btSort.innerText = "⤵️";
+                btSort.addEventListener("click", () => {
+                    snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
+                    renderToDisplay();
+                })
+                sortContainer.appendChild(btSort);
+            }
 
             renderTasks(snapshot.tasks, display);
             break;

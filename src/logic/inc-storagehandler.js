@@ -10,7 +10,14 @@ function loadOnStartup() {
     if (!localStorage.getItem("localSnapshot") == "") {
         return JSON.parse(localStorage.getItem("localSnapshot"));
     } else {
-        return {}
+        return {
+            "options": {
+                "view": "tasks",
+                "sortAscending": true
+            },
+            "projects": [],
+            "tasks": []
+        }
     }
 }
 
