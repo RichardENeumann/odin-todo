@@ -22,13 +22,19 @@ function renderToDisplay() {
             display.classList.remove("showProjects");
             display.classList.add("showTasks");
             display.innerHTML = "";
+
+            const sortContainer = document.createElement("div");
+            sortContainer.id = "btSortTaskView";
+            display.appendChild(sortContainer);
+
             const btSort = document.createElement("button");
             btSort.innerText = "⤵️";
             btSort.addEventListener("click", () => {
                 snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
                 renderToDisplay();
             })
-            display.appendChild(btSort);
+            sortContainer.appendChild(btSort);
+
             renderTasks(snapshot.tasks, display);
             break;
         }
@@ -49,7 +55,7 @@ function renderToDisplay() {
 // This will render tasks on their own page or inside a project div
 function renderTasks(taskList, parent) {
 
-    // Sort taskList by degree of completeness, using all three date fields
+    // Sort taskList by degree of completeness, working through all three date fields
     taskList.sort((a,b) => {
         if (a.done) {
             if (b.done) {
@@ -121,8 +127,12 @@ function renderProjects(projectList) {
         display.appendChild(projectNode);
 
         const titleNode = document.createElement("div");
-            titleNode.innerText = el.title;
+            titleNode.classList.add("titleNode");
         projectNode.appendChild(titleNode);
+
+        const titleDiv = document.createElement("div");
+            titleDiv.innerText = el.title;
+        titleNode.appendChild(titleDiv);
 
         const btEditProject = document.createElement("button");
             btEditProject.id = "EditProject" + el.id;
@@ -130,7 +140,7 @@ function renderProjects(projectList) {
             btEditProject.addEventListener("click", e => {
                 showEditProjectDialog(e.target.id.match(/\d+$/)[0]);
             });
-        titleNode.appendChild(btEditProject);
+        titleDiv.appendChild(btEditProject);
 
         const btDeleteProject = document.createElement("button");
             btDeleteProject.id = "DeleteProject" + el.id;
@@ -138,7 +148,7 @@ function renderProjects(projectList) {
             btDeleteProject.addEventListener("click", e => {
                 showDeleteProjectDialog(e.target.id.match(/\d+$/)[0]);
             });
-        titleNode.appendChild(btDeleteProject);
+        titleDiv.appendChild(btDeleteProject);
 
         const btSort = document.createElement("button");
             btSort.innerText = "⤵️";
@@ -146,7 +156,7 @@ function renderProjects(projectList) {
                 snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
                 renderToDisplay();
             })
-            titleNode.appendChild(btSort);
+        titleNode.appendChild(btSort);
         
         // Find tasks associated with project and render them
         const projectChildren = snapshot.tasks.filter(el2 =>
