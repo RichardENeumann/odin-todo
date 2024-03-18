@@ -1,9 +1,8 @@
-/*
+
 @font-face {
     font-family: "Bagnard Regular";
-    src: url("./style/Bagnard.otf");
-} */
-
+    src: url("./Bagnard.otf");
+}
 * {
     margin: 0;
     padding: 0;
@@ -24,7 +23,7 @@ header {
     text-align: center;
 }
 .logo {
-    /* font-family: "Bagnard Regular"; */
+    font-family: "Bagnard Regular";
     padding: 16px;
     font-weight: bolder;
     font-size: 3rem;
