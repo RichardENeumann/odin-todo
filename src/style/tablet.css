@@ -1,6 +1,13 @@
 /* Tablet screen size adjustments */
 @media screen and (min-width: 600px) { 
+    .uiButtons {
+        display: flex;
+        gap: 8px;
+    }
     dialog {
         width: 50%;
+    }
+    .showProjects {
+        padding: 24px 4rem;
     }
 }
