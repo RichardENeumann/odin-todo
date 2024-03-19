@@ -118,13 +118,12 @@
 
     <dialog id="dlgEditProject">
       <data id="datEditProjectId" value=""></data>
-      <h2>Edit project details:</h2>
+      <h2>Edit project details:</h2><br>
+
+      <label for="inpEditProjectName">Title:</label>
+        <input type="text" id="inpEditProjectName" maxlength="20" size="20"><br><br>
 
       <div class="dlgEditProjectInputBlock">
-        <label for="inpEditProjectName">Title:</label>
-        <input type="text" id="inpEditProjectName" maxlength="20" size="20"><br>
-
-        <div class="editChildren">
           <select id="selAddProjectChildren" multiple="multiple">
           </select>
           <div>
@@ -132,8 +131,7 @@
             <button id="btRemoveFromProject">&laquo;</button><br>
           </div>
           <select id="selEditProjectChildren" multiple="multiple">
-          </select>
-        </div>
+        </select>
       </div>
 
       <form method="dialog">

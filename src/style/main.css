@@ -97,23 +97,14 @@ dialog input {
     margin-bottom: 2rem;
 }
 .dlgEditProjectInputBlock {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
-    row-gap: 16px;
-    margin-top: 1rem;
     margin-bottom: 2rem;
-}
-.editChildren {
     display: grid;
     grid-template-columns: 3fr 1fr 3fr;
 }
-.editChildren select {
+.dlgEditProjectInputBlock select {
     padding: 2px;
 }
-.editChildren > div {
+.dlgEditProjectInputBlock > div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
