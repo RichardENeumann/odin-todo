@@ -89,14 +89,12 @@ dialog input {
     display: inline;
 }
 .dlgEditTaskInputBlock {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-end;
-    align-items: center;
-    gap: 8px;
-    row-gap: 12px;
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    align-items: baseline;
+    gap: 4px;
+    text-align: right;
     margin-bottom: 2rem;
-    
 }
 .dlgEditProjectInputBlock {
     display: flex;

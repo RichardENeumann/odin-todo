@@ -56,7 +56,6 @@ function renderToDisplay() {
 
 // This will render tasks on their own page or inside a project div
 function renderTasks(taskList, parent) {
-
     // Sort taskList by degree of completeness, working through all three date fields
     taskList.sort((a,b) => {
         if (a.done) {
@@ -83,13 +82,13 @@ function renderTasks(taskList, parent) {
     });
     
     if (snapshot.options.sortAscending) {
-        taskList = taskList.reverse();    
+        taskList = taskList.reverse();
     }
 
     taskList.forEach(el => {
         const taskNode = document.createElement("div");
             taskNode.classList.add("task");
-            taskNode.id = "task" + el.id;
+            taskNode.id = `task${el.id}`;
         parent.appendChild(taskNode);   
 
         const taskTitle = document.createElement("div");

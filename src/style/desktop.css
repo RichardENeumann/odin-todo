@@ -1,4 +1,10 @@
 /* Desktop screen size adjustments */
 @media only screen and (min-width: 1280px) {
-    
+    dialog {
+        width: 33%;
+    }
+    .dlgEditTaskInputBlock {
+        width: 75%;
+        grid-template-columns: 3fr 1fr;
+    }
 }
