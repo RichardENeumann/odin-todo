@@ -13,6 +13,7 @@ export { snapshot };
 
 // Initialize
 const snapshot = loadOnStartup();
+console.log(snapshot);
 renderVersionNumber("v0.3.0");
 renderToAppConsole("Status nominal");
 renderToDisplay();

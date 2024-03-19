@@ -7,18 +7,21 @@ export { loadOnStartup, saveState, importSnapshot, exportSnapshot };
 
 // Try to load data from localStorage and initialize snapshot
 function loadOnStartup() {
-    if (localStorage.getItem("localSnapshot") != "") {
-        return JSON.parse(localStorage.getItem("localSnapshot"));
-    } else {
-        return {
-            "options": {
-                "view": "tasks",
-                "sortAscending": true
-            },
-            "projects": [],
-            "tasks": []
-        };
+    const snapshot = {
+        "options": {
+            "view": "tasks",
+            "sortAscending": true
+        },
+        "projects": [],
+        "tasks": []
+    };
+    if (localStorage.getItem("localSnapshot")) {
+        const helper = JSON.parse(localStorage.getItem("localSnapshot"));
+        snapshot.options = helper.options;
+        snapshot.projects = helper.projects;
+        snapshot.tasks = helper.tasks;
     }
+    return snapshot;
 }
 
 // Save current state to localStorage
