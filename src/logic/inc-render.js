@@ -23,98 +23,6 @@ function renderVersionNumber(version) {
     });
 }
 
-// This will render tasks on their own page or inside a project div
-function renderTasks(taskList, parent) {
-    // Sort taskList by degree of completeness, working through [todo, doing, done] date fields
-    taskList.sort((a, b) => {
-        // First compare done dates if present
-        if (a.done) {
-            if (b.done) {
-                const x = new Date(a.done).getTime();
-                const y = new Date(b.done).getTime();
-                if (x > y) {
-                    return -1;
-                }
-                if (x < y) {
-                    return 1;
-                }
-                return 0;
-            }
-            return -1;
-        }
-        if (b.done) {
-            return 1;
-        }
-        // Then compare doing dates if present
-        if (a.doing) {
-            if (b.doing) {
-                const x = new Date(a.doing).getTime();
-                const y = new Date(b.doing).getTime();
-                if (x > y) {
-                    return -1;
-                }
-                if (x < y) {
-                    return 1;
-                }
-                return 0;
-            }
-            return -1;
-        }
-        if (b.doing) {
-            return 1;
-        }
-        // Finally compare todo dates
-        const x = new Date(a.todo).getTime();
-        const y = new Date(b.todo).getTime();
-        if (x > y) {
-            return -1;
-        }
-        if (x < y) {
-            return 1;
-        }
-        return 0;
-    });
-
-    if (snapshot.options.sortAscending) {
-        taskList = taskList.reverse();
-    }
-
-    taskList.forEach(el => {
-        const taskNode = document.createElement("div");
-            taskNode.classList.add("task");
-            taskNode.id = `task${el.id}`;
-        parent.appendChild(taskNode);
-
-        const taskTitle = document.createElement("div");
-            taskTitle.innerText = el.title;
-        taskNode.appendChild(taskTitle);
-        
-        const btEditTask = document.createElement("button");
-            btEditTask.id = `editTask${el.id}`;
-            btEditTask.innerText = "✏️";
-            btEditTask.addEventListener("click", (e) => {
-                showEditTaskDialog(e.target.id.match(/\d+$/)[0]);
-            });
-        taskTitle.appendChild(btEditTask);
-
-        const btDeleteTask = document.createElement("button");
-            btDeleteTask.id = "delTask" + el.id;
-            btDeleteTask.innerText = "🗑️";
-            btDeleteTask.addEventListener("click", (e) => {
-                showDeleteTaskDialog(e.target.id.match(/\d+$/)[0]);
-            });
-        taskTitle.appendChild(btDeleteTask);
-
-        const taskState = document.createElement("div");
-        taskState.innerText = (el.done) ? 
-            new Date(el.done).toLocaleDateString() + " 🟢" : 
-                (el.doing) ? 
-                new Date(el.doing).toLocaleDateString() + " 🟡" :
-                    new Date(el.todo).toLocaleDateString() + " 🔴";
-        taskNode.appendChild(taskState);
-    });
-}
-
 // Handle editing of tasks
 const dlgEditTask = document.getElementById("dlgEditTask");
 const inpEditTaskName = document.getElementById("inpEditTaskName");
@@ -126,7 +34,7 @@ const btConfirmEditTask = document.getElementById("btConfirmEditTask");
     btConfirmEditTask.onclick = confirmEditTask;
 
 function showEditTaskDialog(taskId) {
-    const taskIndex = snapshot.tasks.findIndex(el => el.id == taskId);
+    const taskIndex = snapshot.tasks.findIndex(el => el.id === +taskId);
 
     // Pass taskId to DOM for updateTask()
     datEditTaskId.value = taskId;
@@ -136,22 +44,22 @@ function showEditTaskDialog(taskId) {
 
     inpEditTaskTodoDate.valueAsDate = new Date(snapshot.tasks[taskIndex].todo);
 
-    inpEditTaskDoingDate.valueAsDate = (snapshot.tasks[taskIndex].doing) ? 
-        new Date(snapshot.tasks[taskIndex].doing) : null;
-    
-    inpEditTaskDoneDate.valueAsDate = (snapshot.tasks[taskIndex].done) ? 
-        new Date(snapshot.tasks[taskIndex].done) : null;
-    
+    inpEditTaskDoingDate.valueAsDate = (snapshot.tasks[taskIndex].doing)
+        ? new Date(snapshot.tasks[taskIndex].doing)
+        : null;
+    inpEditTaskDoneDate.valueAsDate = (snapshot.tasks[taskIndex].done)
+        ? new Date(snapshot.tasks[taskIndex].done) 
+        : null;
     dlgEditTask.showModal();
 }
 
 function confirmEditTask() {
     editTask(
-        datEditTaskId.value, 
+        datEditTaskId.value,
         inpEditTaskName.value,
         inpEditTaskTodoDate.value,
         inpEditTaskDoingDate.value,
-        inpEditTaskDoneDate.value
+        inpEditTaskDoneDate.value,
     );
     datEditTaskId.value = "";
 
@@ -272,6 +180,100 @@ function confirmDelProject() {
     renderToAppConsole("Project deleted successfully");
     renderToDisplay();
     dlgDelProject.close();
+}
+
+// This will render tasks on their own page or inside a project div
+function renderTasks(taskList, parent) {
+    // Sort taskList by degree of completeness, working through [todo, doing, done] date fields
+    taskList.sort((a, b) => {
+        // First compare done dates if present
+        if (a.done) {
+            if (b.done) {
+                const x = new Date(a.done).getTime();
+                const y = new Date(b.done).getTime();
+                if (x > y) {
+                    return -1;
+                }
+                if (x < y) {
+                    return 1;
+                }
+                return 0;
+            }
+            return -1;
+        }
+        if (b.done) {
+            return 1;
+        }
+        // Then compare doing dates if present
+        if (a.doing) {
+            if (b.doing) {
+                const x = new Date(a.doing).getTime();
+                const y = new Date(b.doing).getTime();
+                if (x > y) {
+                    return -1;
+                }
+                if (x < y) {
+                    return 1;
+                }
+                return 0;
+            }
+            return -1;
+        }
+        if (b.doing) {
+            return 1;
+        }
+        // Finally compare todo dates
+        const x = new Date(a.todo).getTime();
+        const y = new Date(b.todo).getTime();
+        if (x > y) {
+            return -1;
+        }
+        if (x < y) {
+            return 1;
+        }
+        return 0;
+    });
+
+    if (snapshot.options.sortAscending) {
+        taskList = taskList.reverse();
+    }
+
+    taskList.forEach(el => {
+        const taskNode = document.createElement("div");
+            taskNode.classList.add("task");
+            taskNode.id = `task${el.id}`;
+        parent.appendChild(taskNode);
+
+        const taskTitle = document.createElement("div");
+            taskTitle.innerText = el.title;
+        taskNode.appendChild(taskTitle);
+        
+        const btEditTask = document.createElement("button");
+            btEditTask.id = `editTask${el.id}`;
+            btEditTask.innerText = "✏️";
+            btEditTask.addEventListener("click", (e) => {
+                showEditTaskDialog(e.target.id.match(/\d+$/)[0]);
+            });
+        taskTitle.appendChild(btEditTask);
+
+        const btDeleteTask = document.createElement("button");
+            btDeleteTask.id = "delTask" + el.id;
+            btDeleteTask.innerText = "🗑️";
+            btDeleteTask.addEventListener("click", (e) => {
+                showDeleteTaskDialog(e.target.id.match(/\d+$/)[0]);
+            });
+        taskTitle.appendChild(btDeleteTask);
+
+        const taskState = document.createElement("div");
+        if (el.done) {
+            taskState.innerText = `${new Date(el.done).toLocaleDateString()} 🟢`;
+        } else if (el.doing) {
+            taskState.innerText = `${new Date(el.doing).toLocaleDateString()} 🟡`;
+        } else {
+            taskState.innerText = `${new Date(el.todo).toLocaleDateString()} 🔴`;
+        }
+        taskNode.appendChild(taskState);
+    });
 }
 
 // Show either tasks or projects on screen
