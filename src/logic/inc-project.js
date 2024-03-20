@@ -1,4 +1,4 @@
-import { snapshot } from "../index.js";
+import { snapshot } from "./index.js";
 import { findUnusedId } from "./inc-task.js";
 
 export { createProject, editProject, deleteProject };

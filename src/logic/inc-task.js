@@ -1,27 +1,33 @@
-import { snapshot } from "../index.js";
-
-export { findUnusedId, createTask, editTask, deleteTask };
+import { snapshot } from "./index.js";
 
 function findUnusedId(target) {
     // target = projects or tasks
     // First sort all id numbers into an array by ascending order
-    const helper = snapshot[target].toSorted((a, b) => (a.id < b.id) ? -1 : (a.id > b.id) ? 1 : 0);
+    const helper = snapshot[target].toSorted((a, b) => {
+        if (a.id < b.id) {
+            return -1;
+        }
+        if (a.id > b.id) {
+            return 1;
+        }
+        return 0;
+    });
 
     // Find first unused id by comparing index to id key
     let unusedId = 0;
     while (unusedId < helper.length && unusedId === helper[unusedId].id) {
-        unusedId++;
+        unusedId += 1;
     }
     return unusedId;
 }
 
 function createTask(title = "Example Task") {
     const newTask = {
-        title, 
-        "id": findUnusedId("tasks"),
-        "todo" : new Date().toISOString(),  
-        "doing": false,   
-        "done": false
+        title,
+        id: findUnusedId("tasks"),
+        todo: new Date().toISOString(),
+        doing: false,
+        done: false,
     };
     // Check if snapshot is empty before pushing new task
     if ("tasks" in snapshot) {
@@ -33,16 +39,22 @@ function createTask(title = "Example Task") {
 }
 
 function editTask(id, title, todo, doing, done) {
-    const taskIndex = snapshot.tasks.findIndex(el => el.id == id);
+    const taskIndex = snapshot.tasks.findIndex(el => el.id === +id);
 
-    snapshot.tasks[taskIndex].title = (title) ? title : "Example Task";
-    snapshot.tasks[taskIndex].todo = (todo) ? new Date(todo).toISOString() : new Date().toISOString();
-    snapshot.tasks[taskIndex].doing = (doing) ? new Date(doing).toISOString() : false;
-    snapshot.tasks[taskIndex].done = (done) ? new Date(done).toISOString() : false;
+    snapshot.tasks[taskIndex].title = (title || "Example Task");
+    snapshot.tasks[taskIndex].todo = (todo)
+        ? new Date(todo).toISOString()
+        : new Date().toISOString();
+    snapshot.tasks[taskIndex].doing = (doing)
+        ? new Date(doing).toISOString()
+        : false;
+    snapshot.tasks[taskIndex].done = (done)
+        ? new Date(done).toISOString()
+        : false;
 }
 
 function deleteTask(id) {
-    const taskIndex = snapshot.tasks.findIndex(el => el.id == id);
+    const taskIndex = snapshot.tasks.findIndex(el => el.id === +id);
 
     // Remove from tasks list
     snapshot.tasks.splice(taskIndex, 1);
@@ -55,3 +67,10 @@ function deleteTask(id) {
         }
     });
 }
+
+export {
+    findUnusedId,
+    createTask,
+    editTask,
+    deleteTask,
+};

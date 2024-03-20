@@ -2,10 +2,10 @@ const path = require("path");
 
 module.exports = {
     entry: {
-        app: "./src/index.js",
+        app: "./src/logic/index.js",
     },
     output: {
-        filename: "./main.js",
+        filename: "./logic/main.js",
         path: path.resolve(__dirname, "dist"),
     },
     module: {

@@ -1,8 +1,14 @@
-import { snapshot } from "../index.js";
-import { editTask, deleteTask } from "./inc-task.js";
-import { editProject, deleteProject } from "./inc-project.js";
+import { snapshot } from "./index.js";
 
-export { renderToAppConsole, renderVersionNumber, renderToDisplay };
+import { 
+    editTask,
+    deleteTask,
+} from "./inc-task.js";
+
+import {
+    editProject,
+    deleteProject,
+} from "./inc-project.js";
 
 const display = document.getElementById("display");
 
@@ -11,76 +17,64 @@ function renderToAppConsole(message) {
 }
 
 function renderVersionNumber(version) {
-    let versionDisplay = document.getElementsByClassName("version");
-    Array.from(versionDisplay).forEach(el => el.innerText = version);
-}
-
-// Show either tasks or projects on screen
-function renderToDisplay() {
-    switch (snapshot.options.view) {
-        case "tasks": {
-            display.classList.remove("showProjects");
-            display.classList.add("showTasks");
-            display.innerHTML = "";
-
-            if (snapshot.tasks.length != 0) {
-                const sortContainer = document.createElement("div");
-                sortContainer.id = "btSortTaskView";
-                display.appendChild(sortContainer);
-
-                const btSort = document.createElement("button");
-                btSort.innerText = "⤵️";
-                btSort.addEventListener("click", () => {
-                    snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
-                    renderToDisplay();
-                });
-                sortContainer.appendChild(btSort);
-            }
-
-            renderTasks(snapshot.tasks, display);
-            break;
-        }
-        case "projects": {
-            display.classList.remove("showTasks");
-            display.classList.add("showProjects");
-            display.innerHTML = "";
-            renderProjects(snapshot.projects);
-            break;
-        }
-        default:
-            display.innerHTML = "";
-            renderToAppConsole("An error has occured");
-            break;
-    }
+    const versionDisplay = document.getElementsByClassName("version");
+    Array.from(versionDisplay).forEach(el => {
+        el.innerText = version;
+    });
 }
 
 // This will render tasks on their own page or inside a project div
 function renderTasks(taskList, parent) {
-    // Sort taskList by degree of completeness, working through all three date fields
-    taskList.sort((a,b) => {
+    // Sort taskList by degree of completeness, working through [todo, doing, done] date fields
+    taskList.sort((a, b) => {
+        // First compare done dates if present
         if (a.done) {
             if (b.done) {
                 const x = new Date(a.done).getTime();
                 const y = new Date(b.done).getTime();
-                return (x > y) ? -1 : (x < y) ? 1 : 0;
-            } else return -1;
-        } else if (b.done) {
+                if (x > y) {
+                    return -1;
+                }
+                if (x < y) {
+                    return 1;
+                }
+                return 0;
+            }
+            return -1;
+        }
+        if (b.done) {
             return 1;
         }
+        // Then compare doing dates if present
         if (a.doing) {
             if (b.doing) {
                 const x = new Date(a.doing).getTime();
                 const y = new Date(b.doing).getTime();
-                return (x > y) ? -1 : (x < y) ? 1 : 0;
-            } else return -1;
-        } else if (b.doing) {
+                if (x > y) {
+                    return -1;
+                }
+                if (x < y) {
+                    return 1;
+                }
+                return 0;
+            }
+            return -1;
+        }
+        if (b.doing) {
             return 1;
         }
+        // Finally compare todo dates
         const x = new Date(a.todo).getTime();
         const y = new Date(b.todo).getTime();
-        return (x > y) ? -1 : (x < y) ? 1 : 0;
+        if (x > y) {
+            return -1;
+        }
+        if (x < y) {
+            return 1;
+        }
+        return 0;
     });
-    
+
     if (snapshot.options.sortAscending) {
         taskList = taskList.reverse();
     }
@@ -89,14 +83,14 @@ function renderTasks(taskList, parent) {
         const taskNode = document.createElement("div");
             taskNode.classList.add("task");
             taskNode.id = `task${el.id}`;
-        parent.appendChild(taskNode);   
+        parent.appendChild(taskNode);
 
         const taskTitle = document.createElement("div");
             taskTitle.innerText = el.title;
         taskNode.appendChild(taskTitle);
         
         const btEditTask = document.createElement("button");
-            btEditTask.id = "editTask" + el.id;
+            btEditTask.id = `editTask${el.id}`;
             btEditTask.innerText = "✏️";
             btEditTask.addEventListener("click", (e) => {
                 showEditTaskDialog(e.target.id.match(/\d+$/)[0]);
@@ -118,51 +112,6 @@ function renderTasks(taskList, parent) {
                 new Date(el.doing).toLocaleDateString() + " 🟡" :
                     new Date(el.todo).toLocaleDateString() + " 🔴";
         taskNode.appendChild(taskState);
-    });
-}
-
-function renderProjects(projectList) {
-    projectList.forEach(el => {
-        const projectNode = document.createElement("div");
-            projectNode.classList.add("project");
-        display.appendChild(projectNode);
-
-        const titleNode = document.createElement("div");
-            titleNode.classList.add("titleNode");
-        projectNode.appendChild(titleNode);
-
-        const titleDiv = document.createElement("div");
-            titleDiv.innerText = el.title;
-        titleNode.appendChild(titleDiv);
-
-        const btEditProject = document.createElement("button");
-            btEditProject.id = "EditProject" + el.id;
-            btEditProject.innerText = "✏️";
-            btEditProject.addEventListener("click", e => {
-                showEditProjectDialog(e.target.id.match(/\d+$/)[0]);
-            });
-        titleDiv.appendChild(btEditProject);
-
-        const btDeleteProject = document.createElement("button");
-            btDeleteProject.id = "DeleteProject" + el.id;
-            btDeleteProject.innerText = "🗑️";
-            btDeleteProject.addEventListener("click", e => {
-                showDeleteProjectDialog(e.target.id.match(/\d+$/)[0]);
-            });
-        titleDiv.appendChild(btDeleteProject);
-
-        const btSort = document.createElement("button");
-            btSort.innerText = "⤵️";
-            btSort.addEventListener("click", () => {
-                snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
-                renderToDisplay();
-            });
-        titleNode.appendChild(btSort);
-        
-        // Find tasks associated with project and render them
-        const projectChildren = snapshot.tasks.filter(el2 =>
-            el.children.includes(el2.id));
-        renderTasks(projectChildren, projectNode);
     });
 }
 
@@ -324,3 +273,96 @@ function confirmDelProject() {
     renderToDisplay();
     dlgDelProject.close();
 }
+
+// Show either tasks or projects on screen
+function renderToDisplay() {
+    switch (snapshot.options.view) {
+        case "tasks": {
+            display.classList.remove("showProjects");
+            display.classList.add("showTasks");
+            display.innerHTML = "";
+
+            if (snapshot.tasks.length !== 0) {
+                const sortContainer = document.createElement("div");
+                sortContainer.id = "btSortTaskView";
+                display.appendChild(sortContainer);
+
+                const btSort = document.createElement("button");
+                btSort.innerText = "⤵️";
+                btSort.addEventListener("click", () => {
+                    snapshot.options.sortAscending = (snapshot.options.sortAscending)
+                        ? false
+                        : true;
+                    renderToDisplay();
+                });
+                sortContainer.appendChild(btSort);
+            }
+
+            renderTasks(snapshot.tasks, display);
+            break;
+        }
+        case "projects": {
+            display.classList.remove("showTasks");
+            display.classList.add("showProjects");
+            display.innerHTML = "";
+            renderProjects(snapshot.projects);
+            break;
+        }
+        default:
+            display.innerHTML = "";
+            renderToAppConsole("An error has occured");
+            break;
+    }
+}
+
+
+function renderProjects(projectList) {
+    projectList.forEach(el => {
+        const projectNode = document.createElement("div");
+            projectNode.classList.add("project");
+        display.appendChild(projectNode);
+
+        const titleNode = document.createElement("div");
+            titleNode.classList.add("titleNode");
+        projectNode.appendChild(titleNode);
+
+        const titleDiv = document.createElement("div");
+            titleDiv.innerText = el.title;
+        titleNode.appendChild(titleDiv);
+
+        const btEditProject = document.createElement("button");
+            btEditProject.id = "EditProject" + el.id;
+            btEditProject.innerText = "✏️";
+            btEditProject.addEventListener("click", e => {
+                showEditProjectDialog(e.target.id.match(/\d+$/)[0]);
+            });
+        titleDiv.appendChild(btEditProject);
+
+        const btDeleteProject = document.createElement("button");
+            btDeleteProject.id = "DeleteProject" + el.id;
+            btDeleteProject.innerText = "🗑️";
+            btDeleteProject.addEventListener("click", e => {
+                showDeleteProjectDialog(e.target.id.match(/\d+$/)[0]);
+            });
+        titleDiv.appendChild(btDeleteProject);
+
+        const btSort = document.createElement("button");
+            btSort.innerText = "⤵️";
+            btSort.addEventListener("click", () => {
+                snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
+                renderToDisplay();
+            });
+        titleNode.appendChild(btSort);
+        
+        // Find tasks associated with project and render them
+        const projectChildren = snapshot.tasks.filter(el2 =>
+            el.children.includes(el2.id));
+        renderTasks(projectChildren, projectNode);
+    });
+}
+
+export {
+    renderToAppConsole,
+    renderVersionNumber,
+    renderToDisplay,
+};

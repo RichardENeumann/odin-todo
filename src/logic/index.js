@@ -1,15 +1,29 @@
 "use strict";
 
-import "./style/main.css";
-import "./style/tablet.css";
-import "./style/desktop.css";
+import "../style/main.css";
+import "../style/tablet.css";
+import "../style/desktop.css";
 
-import { loadOnStartup, saveState, importSnapshot, exportSnapshot } from "./logic/inc-storagehandler.js";
-import { createTask } from "./logic/inc-task.js";
-import { createProject } from "./logic/inc-project.js";
-import { renderToAppConsole, renderVersionNumber, renderToDisplay,  } from "./logic/inc-render.js";
+import { 
+    loadOnStartup,
+    saveState,
+    importSnapshot,
+    exportSnapshot,
+} from "./inc-storagehandler.js";
 
-export { snapshot };
+import {
+    createTask,
+} from "./inc-task.js";
+
+import {
+    createProject,
+} from "./inc-project.js";
+
+import {
+    renderToAppConsole,
+    renderVersionNumber,
+    renderToDisplay,
+} from "./inc-render.js";
 
 // Initialize
 const snapshot = loadOnStartup();
@@ -35,7 +49,7 @@ document.getElementById("btImport").addEventListener("click", () => dlgImport.sh
 // If file is selected, load JSON, update local snapshot object, then re-render
 document.getElementById("btConfirmImport").addEventListener("click", () => {
     const fileSelector = document.getElementById("fileSelector");
-    if (fileSelector.files.length != 0) { 
+    if (fileSelector.files.length !== 0) { 
         importSnapshot(fileSelector);
         renderToAppConsole("Snapshot imported");
     } else {
@@ -65,7 +79,7 @@ document.getElementById("btAddTask").addEventListener("click", () => {
 });
 
 document.getElementById("btConfirmAddTask").addEventListener("click", () => {
-    if (inpAddTaskName.value != "") {
+    if (inpAddTaskName.value !== "") {
         createTask(inpAddTaskName.value);
         renderToAppConsole("Task created successfully");
         renderToDisplay();
@@ -84,12 +98,12 @@ document.getElementById("btAddProject").addEventListener("click", () => {
 
 // Show Add Project dialog
 document.getElementById("btConfirmAddProject").addEventListener("click", () => {
-    if (inpAddProjectName.value != "") {
+    if (inpAddProjectName.value !== "") {
         createProject(inpAddProjectName.value);
         renderToAppConsole("Project created successfully");
         renderToDisplay();
     }
-    dlgAddProject.close();    
+    dlgAddProject.close();
 });
 
 // Righthand group
@@ -106,3 +120,7 @@ document.getElementById("btShowTasks").addEventListener("click", () => {
 document.getElementById("btShowAbout").addEventListener("click", () => {
     document.getElementById("dlgAbout").showModal();
 });
+
+export {
+    snapshot,
+};
