@@ -11,13 +11,8 @@ import {
     exportSnapshot,
 } from "./inc-storagehandler.js";
 
-import {
-    createTask,
-} from "./inc-task.js";
-
-import {
-    createProject,
-} from "./inc-project.js";
+import { createTask } from "./inc-task.js";
+import { createProject } from "./inc-project.js";
 
 import {
     renderToAppConsole,

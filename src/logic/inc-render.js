@@ -1,6 +1,6 @@
 import { snapshot } from "./index.js";
 
-import { 
+import {
     editTask,
     deleteTask,
 } from "./inc-task.js";
@@ -333,7 +333,7 @@ function renderProjects(projectList) {
         titleNode.appendChild(titleDiv);
 
         const btEditProject = document.createElement("button");
-            btEditProject.id = "EditProject" + el.id;
+            btEditProject.id = `EditProject${el.id}`;
             btEditProject.innerText = "✏️";
             btEditProject.addEventListener("click", e => {
                 showEditProjectDialog(e.target.id.match(/\d+$/)[0]);
@@ -341,7 +341,7 @@ function renderProjects(projectList) {
         titleDiv.appendChild(btEditProject);
 
         const btDeleteProject = document.createElement("button");
-            btDeleteProject.id = "DeleteProject" + el.id;
+            btDeleteProject.id = `DeleteProject${el.id}`;
             btDeleteProject.innerText = "🗑️";
             btDeleteProject.addEventListener("click", e => {
                 showDeleteProjectDialog(e.target.id.match(/\d+$/)[0]);
@@ -351,7 +351,9 @@ function renderProjects(projectList) {
         const btSort = document.createElement("button");
             btSort.innerText = "⤵️";
             btSort.addEventListener("click", () => {
-                snapshot.options.sortAscending = (snapshot.options.sortAscending) ? false : true;
+                snapshot.options.sortAscending = (snapshot.options.sortAscending) 
+                    ? false 
+                    : true;
                 renderToDisplay();
             });
         titleNode.appendChild(btSort);
