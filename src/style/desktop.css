@@ -1,16 +1,16 @@
 /* Desktop screen size adjustments */
 @media only screen and (min-width: 1280px) {
-    dialog {
-        width: 33%;
-    }
-    .dlgEditTaskInputBlock {
-        width: 75%;
-        grid-template-columns: 3fr 1fr;
-    }
-    .showProjects {
-        padding: 24px 16rem;
-    }
-    .showTasks {
-        padding: 24px 16rem;
-    }
+	dialog {
+		width: 33%;
+	}
+	.dlgEditTaskInputBlock {
+		width: 75%;
+		grid-template-columns: 3fr 1fr;
+	}
+	.showProjects {
+		padding: 24px 16rem;
+	}
+	.showTasks {
+		padding: 24px 16rem;
+	}
 }

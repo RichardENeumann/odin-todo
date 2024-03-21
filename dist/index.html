@@ -1,154 +1,154 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>tada!</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <script defer src="./logic/main.js"></script>
-  </head>
-  <body>
+	<head>
+		<meta charset="utf-8">
+		<title>tada!</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<script defer src="./logic/main.js"></script>
+	</head>
+	<body>
 
-    <header>
-      <h1 class="logo">tada!</h1>
-      <nav>
-        <div class="uiButtons">
-          <button id="btSave">💾 Save</button>
-          <button id="btImport">↙️ Import</button>
-          <button id="btExport">↗️ Export</button>
-          <button id="btShowProjects">📋 Projects</button>
-          <button id="btShowTasks">⌚ Tasks</button>
-          <button id="btShowAbout">❓ About</button>
-        </div>
-        <hr>
-        <div class="addButtons">
-          <button id="btAddTask">➕ Add Task</button>
-          <button id="btAddProject">➕ Add Project</button>
-        </div>
-      </nav>
-    </header>
+		<header>
+			<h1 class="logo">tada!</h1>
+			<nav>
+				<div class="uiButtons">
+					<button id="btSave">💾 Save</button>
+					<button id="btImport">↙️ Import</button>
+					<button id="btExport">↗️ Export</button>
+					<button id="btShowProjects">📋 Projects</button>
+					<button id="btShowTasks">⌚ Tasks</button>
+					<button id="btShowAbout">❓ About</button>
+				</div>
+				<hr>
+				<div class="addButtons">
+					<button id="btAddTask">➕ Add Task</button>
+					<button id="btAddProject">➕ Add Project</button>
+				</div>
+			</nav>
+		</header>
 
-    <main id="display">
-    </main>
+		<main id="display">
+		</main>
 
-    <footer>
-      <div id="appConsole">Loading...</div>
-      <div class="version">v0.0.1</div>
-    </footer>
+		<footer>
+			<div id="appConsole">Loading...</div>
+			<div class="version">v0.0.1</div>
+		</footer>
 
-    <!-- DIALOG WINDOWS -->
-    
-    <dialog id="dlgImport">
-      <input type="file" id="fileSelector" accept="application/json"><br><br>
-      <form method="dialog">
-        <button>❌ Cancel</button>
-      </form>
-      <button id="btConfirmImport">➡️ Import</button>
-    </dialog>
-
-
-    <dialog id="dlgExportSuccess">
-      A snapshot has been saved to your download folder.<br><br>
-      <form method="dialog">
-        <button>Close</button>
-      </form>
-    </dialog>
+		<!-- DIALOG WINDOWS -->
+		
+		<dialog id="dlgImport">
+			<input type="file" id="fileSelector" accept="application/json"><br><br>
+			<form method="dialog">
+				<button>❌ Cancel</button>
+			</form>
+			<button id="btConfirmImport">➡️ Import</button>
+		</dialog>
 
 
-    <dialog id="dlgAddTask">
-      Enter the task name:
-      <input type="text" id="inpAddTaskName" maxlength="20" size="20"><br><br>
-      <form method="dialog">
-        <button>❌ Cancel</button>
-      </form>
-      <button id="btConfirmAddTask">➡️ Add</button>
-    </dialog>
+		<dialog id="dlgExportSuccess">
+			A snapshot has been saved to your download folder.<br><br>
+			<form method="dialog">
+				<button>Close</button>
+			</form>
+		</dialog>
 
 
-    <dialog id="dlgAddProject">
-      Enter the project name:
-      <input type="text" id="inpAddProjectName" maxlength="20" size="20"><br><br>
-      <form method="dialog">
-        <button>❌ Cancel</button>
-      </form>
-      <button id="btConfirmAddProject">➡️ Add</button>
-    </dialog>
+		<dialog id="dlgAddTask">
+			Enter the task name:
+			<input type="text" id="inpAddTaskName" maxlength="20" size="20"><br><br>
+			<form method="dialog">
+				<button>❌ Cancel</button>
+			</form>
+			<button id="btConfirmAddTask">➡️ Add</button>
+		</dialog>
 
 
-    <dialog id="dlgAbout">
-      <b>tada!</b> <i class="version">v0.0.1</i><br>
-      <a href="https://github.com/RichardENeumann/odin-todo">GitHub</a><br>
-      <a href="mailto:richardneumann@gmail.com">Contact</a><br><br>
-      <form method="dialog">
-        <button>Close</button>
-      </form>
-    </dialog>
+		<dialog id="dlgAddProject">
+			Enter the project name:
+			<input type="text" id="inpAddProjectName" maxlength="20" size="20"><br><br>
+			<form method="dialog">
+				<button>❌ Cancel</button>
+			</form>
+			<button id="btConfirmAddProject">➡️ Add</button>
+		</dialog>
 
 
-    <dialog id="dlgEditTask">
-      <data id="datEditTaskId" value=""></data>
-      <h2>Edit task details:</h2><br>
-      <label for="inpEditTaskName">Title:</label>
-      <input type="text" id="inpEditTaskName" maxlength="20" size="20"><br><br>
-      <div class="dlgEditTaskInputBlock">
-        <label for="inpEditTaskTodoDate">Create date:</label>  
-        <input type="date" id="inpEditTaskTodoDate">
-     
-        <label for="inpEditTaskDoingDate">Start date:</label>
-        <input type="date" id="inpEditTaskDoingDate">
-      
-        <label for="inpEditTaskDoneDate">End date:</label>
-        <input type="date" id="inpEditTaskDoneDate">
-      </div>
-      <form method="dialog">
-        <button>❌ Cancel</button>
-      </form>
-      <button id="btConfirmEditTask">➡️ Edit</button>
-    </dialog>
-    
-
-    <dialog id="dlgDelTask">
-      <data id="datDelTaskId" value=""></data>
-      Are you sure you want to delete this task?<br><br>
-      <form method="dialog">
-        <button>❌ Cancel</button>
-      </form>
-      <button id="btConfirmDelTask">➡️ Delete</button>
-    </dialog>
+		<dialog id="dlgAbout">
+			<b>tada!</b> <i class="version">v0.0.1</i><br>
+			<a href="https://github.com/RichardENeumann/odin-todo">GitHub</a><br>
+			<a href="mailto:richardneumann@gmail.com">Contact</a><br><br>
+			<form method="dialog">
+				<button>Close</button>
+			</form>
+		</dialog>
 
 
-    <dialog id="dlgEditProject">
-      <data id="datEditProjectId" value=""></data>
-      <h2>Edit project details:</h2><br>
+		<dialog id="dlgEditTask">
+			<data id="datEditTaskId" value=""></data>
+			<h2>Edit task details:</h2><br>
+			<label for="inpEditTaskName">Title:</label>
+			<input type="text" id="inpEditTaskName" maxlength="20" size="20"><br><br>
+			<div class="dlgEditTaskInputBlock">
+				<label for="inpEditTaskTodoDate">Create date:</label>  
+				<input type="date" id="inpEditTaskTodoDate">
+		 
+				<label for="inpEditTaskDoingDate">Start date:</label>
+				<input type="date" id="inpEditTaskDoingDate">
+			
+				<label for="inpEditTaskDoneDate">End date:</label>
+				<input type="date" id="inpEditTaskDoneDate">
+			</div>
+			<form method="dialog">
+				<button>❌ Cancel</button>
+			</form>
+			<button id="btConfirmEditTask">➡️ Edit</button>
+		</dialog>
+		
 
-      <label for="inpEditProjectName">Title:</label>
-        <input type="text" id="inpEditProjectName" maxlength="20" size="20"><br><br>
-
-      <div class="dlgEditProjectInputBlock">
-          <select id="selAddProjectChildren" multiple="multiple">
-          </select>
-          <div>
-            <button id="btAddToProject">&raquo;</button><br>
-            <button id="btRemoveFromProject">&laquo;</button><br>
-          </div>
-          <select id="selEditProjectChildren" multiple="multiple">
-        </select>
-      </div>
-
-      <form method="dialog">
-        <button>❌ Cancel</button>
-      </form>
-      <button id="btConfirmEditProject">➡️ Confirm</button>
-    </dialog>
+		<dialog id="dlgDelTask">
+			<data id="datDelTaskId" value=""></data>
+			Are you sure you want to delete this task?<br><br>
+			<form method="dialog">
+				<button>❌ Cancel</button>
+			</form>
+			<button id="btConfirmDelTask">➡️ Delete</button>
+		</dialog>
 
 
-    <dialog id="dlgDelProject">
-      <data id="datDelProjectId" value=""></data>
-      Are you sure you want to delete this project?<br><br>
-      <form method="dialog">
-        <button>❌ Cancel</button>
-      </form>
-      <button id="btConfirmDelProject">➡️ Delete</button>
-    </dialog>
+		<dialog id="dlgEditProject">
+			<data id="datEditProjectId" value=""></data>
+			<h2>Edit project details:</h2><br>
 
-  </body>
+			<label for="inpEditProjectName">Title:</label>
+				<input type="text" id="inpEditProjectName" maxlength="20" size="20"><br><br>
+
+			<div class="dlgEditProjectInputBlock">
+					<select id="selAddProjectChildren" multiple="multiple">
+					</select>
+					<div>
+						<button id="btAddToProject">&raquo;</button><br>
+						<button id="btRemoveFromProject">&laquo;</button><br>
+					</div>
+					<select id="selEditProjectChildren" multiple="multiple">
+				</select>
+			</div>
+
+			<form method="dialog">
+				<button>❌ Cancel</button>
+			</form>
+			<button id="btConfirmEditProject">➡️ Confirm</button>
+		</dialog>
+
+
+		<dialog id="dlgDelProject">
+			<data id="datDelProjectId" value=""></data>
+			Are you sure you want to delete this project?<br><br>
+			<form method="dialog">
+				<button>❌ Cancel</button>
+			</form>
+			<button id="btConfirmDelProject">➡️ Delete</button>
+		</dialog>
+
+	</body>
 </html>

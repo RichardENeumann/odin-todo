@@ -1,41 +1,41 @@
 {
-    "options": {
-        "view": "projects",
-        "sortAscending": true
-    },
-    "projects": [
-            {
-                "id": 4,
-                "title": "Star Wars",
-                "children": [0, 1]
-            },
-            {
-                "id": 1,
-                "title": "Lord of the Rings",
-                "children": [4, 0]
-            }
-        ],
-    "tasks": [
-        {
-            "id": 0,
-            "title": "Write script",
-            "todo": "1977-01-09T23:00:00.000Z",
-            "doing": false,
-            "done": false
-        },
-        {
-            "id": 4,
-            "title": "Scout locations",
-            "todo": "1924-08-12T22:00:00.000Z",
-            "doing": "1984-03-11T23:00:00.000Z",
-            "done": false
-        },
-        {
-            "id": 1,
-            "title": "Find director",
-            "todo": "1938-08-12T22:00:00.000Z",
-            "doing": "2011-01-11T23:00:00.000Z",
-            "done": "2022-01-11T23:00:00.000Z"
-        }
-    ] 
+	"options": {
+		"view": "projects",
+		"sortAscending": true
+	},
+	"projects": [
+			{
+				"id": 4,
+				"title": "Star Wars",
+				"children": [0, 1]
+			},
+			{
+				"id": 1,
+				"title": "Lord of the Rings",
+				"children": [4, 0]
+			}
+		],
+	"tasks": [
+		{
+			"id": 0,
+			"title": "Write script",
+			"todo": "1977-01-09T23:00:00.000Z",
+			"doing": false,
+			"done": false
+		},
+		{
+			"id": 4,
+			"title": "Scout locations",
+			"todo": "1924-08-12T22:00:00.000Z",
+			"doing": "1984-03-11T23:00:00.000Z",
+			"done": false
+		},
+		{
+			"id": 1,
+			"title": "Find director",
+			"todo": "1938-08-12T22:00:00.000Z",
+			"doing": "2011-01-11T23:00:00.000Z",
+			"done": "2022-01-11T23:00:00.000Z"
+		}
+	] 
 }
