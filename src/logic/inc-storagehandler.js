@@ -32,7 +32,7 @@ function saveState(currentSnapshot) {
 }
 
 // Load external JSON file as snapshot
-function importSnapshot(fileSelector, currentSnapshot) {
+function importSnapshot(currentSnapshot, fileSelector) {
   const reader = new FileReader();
 
   reader.addEventListener("load", () => {
@@ -49,7 +49,7 @@ function importSnapshot(fileSelector, currentSnapshot) {
 // Export current state to JSON file
 function exportSnapshot(currentSnapshot) {
   if (Object.keys(currentSnapshot) !== 0) {
-    const processedSnapshot = JSON.stringify(snapshot, null, 2);
+    const processedSnapshot = JSON.stringify(currentSnapshot, null, 2);
 
     // Download JSON file
     const el = document.createElement("a");

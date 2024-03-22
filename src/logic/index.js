@@ -19,7 +19,7 @@ import {
 } from "./inc-render.js";
 
 // Initialize
-let snapshot = loadOnStartup();
+const snapshot = loadOnStartup();
 renderVersionNumber("v0.3.0");
 renderToAppConsole("Status nominal");
 renderToDisplay();
@@ -43,7 +43,7 @@ document.getElementById("btImport").addEventListener("click", () => dlgImport.sh
 document.getElementById("btConfirmImport").addEventListener("click", () => {
   const fileSelector = document.getElementById("fileSelector");
   if (fileSelector.files.length !== 0) {
-    importSnapshot(fileSelector, snapshot);
+    importSnapshot(snapshot, fileSelector);
     renderToAppConsole("Snapshot imported");
   } else {
     renderToAppConsole("Nothing to import");
@@ -73,7 +73,7 @@ document.getElementById("btAddTask").addEventListener("click", () => {
 
 document.getElementById("btConfirmAddTask").addEventListener("click", () => {
   if (inpAddTaskName.value !== "") {
-    createTask(inpAddTaskName.value);
+    createTask(snapshot, inpAddTaskName.value);
     renderToAppConsole("Task created successfully");
     renderToDisplay();
   }
@@ -91,7 +91,7 @@ document.getElementById("btAddProject").addEventListener("click", () => {
 
 document.getElementById("btConfirmAddProject").addEventListener("click", () => {
   if (inpAddProjectName.value !== "") {
-    createProject(inpAddProjectName.value);
+    createProject(snapshot, inpAddProjectName.value);
     renderToAppConsole("Project created successfully");
     renderToDisplay();
   }

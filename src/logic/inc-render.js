@@ -156,7 +156,6 @@ function renderToDisplay() {
   }
 }
 
-
 function renderProjects(projectList) {
   projectList.forEach(el => {
     const projectNode = document.createElement("div");
@@ -233,6 +232,7 @@ function showEditTaskDialog(taskId) {
 
 function confirmEditTask() {
   editTask(
+    snapshot,
     datEditTaskId.value,
     inpEditTaskName.value,
     inpEditTaskTodoDate.value,
@@ -258,7 +258,7 @@ function showDeleteTaskDialog(id) {
 }
 
 function confirmDelTask() {
-  deleteTask(datDelTaskId.value);
+  deleteTask(snapshot, datDelTaskId.value);
   datDelTaskId.value = "";
 
   renderToAppConsole("Task deleted successfully");
@@ -335,6 +335,7 @@ function confirmEditProject() {
   Array.from(selEditProjectChildren.options).forEach(el => children.push(+el.value));
 
   editProject(
+    snapshot,
     datEditProjectId.value,
     inpEditProjectName.value,
     children,
@@ -358,7 +359,7 @@ function showDeleteProjectDialog(id) {
 }
 
 function confirmDelProject() {
-  deleteProject(datDelProjectId.value);
+  deleteProject(snapshot, datDelProjectId.value);
   datDelProjectId.value = "";
 
   renderToAppConsole("Project deleted successfully");
