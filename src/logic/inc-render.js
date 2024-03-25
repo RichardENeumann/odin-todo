@@ -289,11 +289,11 @@ function showEditProjectDialog(taskId) {
   // Populate dialog with task content
   inpEditProjectName.value = snapshot.projects[taskIndex].title;
 
-  const candidateList = snapshot.tasks.filter(el => 
+  const candidateList = snapshot.tasks.filter(el =>
     !snapshot.projects[taskIndex].children.includes(el.id));
   renderTasksToListbox(candidateList, selAddProjectChildren);
 
-  const childList = snapshot.tasks.filter(el => 
+  const childList = snapshot.tasks.filter(el =>
     snapshot.projects[taskIndex].children.includes(el.id));
   renderTasksToListbox(childList, selEditProjectChildren);
 

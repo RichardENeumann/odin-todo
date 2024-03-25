@@ -52,6 +52,9 @@ button {
 	background-color: lightgrey;
 	font-size: 1rem;
 }
+button:hover {
+	background-color: darkgrey;
+}
 main {
 	flex-grow: 1;
 }
