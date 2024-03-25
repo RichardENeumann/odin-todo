@@ -55,6 +55,24 @@ button {
 button:hover {
 	background-color: darkgrey;
 }
+.tooltip {
+	position: relative;
+}
+.tooltiptext {
+	visibility: hidden;
+	width: 120px;
+	background-color: darkslategrey;
+	color: white;
+	text-align: center;
+	padding: 4px;
+	border-radius: 6px;
+	position: absolute;
+	z-index: 1;
+}
+.tooltip:hover .tooltiptext {
+	transition-delay: 1s;
+	visibility: visible;
+}
 main {
 	flex-grow: 1;
 }
