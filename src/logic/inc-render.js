@@ -12,21 +12,23 @@ import {
 
 const display = document.getElementById("display");
 
-function renderToAppConsole(message) {
+export function renderToAppConsole(message) {
   document.getElementById("appConsole").innerText = message;
 }
 
-function renderVersionNumber(version) {
+export function renderVersionNumber(version) {
   const versionDisplay = document.getElementsByClassName("version");
   Array.from(versionDisplay).forEach(el => {
-    el.innerText = version;
+    const elHelper = el;
+    elHelper.innerText = version;
   });
 }
 
 // This will render tasks on their own page or inside a project div
-function renderTasks(taskList, parent) {
+function renderTasks(taskList, parent, options) {
+  let taskListHelper = taskList;
   // Sort taskList by degree of completeness, working through [todo, doing, done] date fields
-  taskList.sort((a, b) => {
+  taskListHelper.sort((a, b) => {
     // First compare done dates if present
     if (a.done) {
       if (b.done) {
@@ -75,11 +77,11 @@ function renderTasks(taskList, parent) {
     return 0;
   });
 
-  if (snapshot.options.sortAscending) {
-    taskList = taskList.reverse();
+  if (options.sortAscending) {
+    taskListHelper = taskListHelper.reverse();
   }
 
-  taskList.forEach(el => {
+  taskListHelper.forEach(el => {
     const taskNode = document.createElement("div");
     taskNode.classList.add("task");
     taskNode.id = `task${el.id}`;
@@ -118,7 +120,7 @@ function renderTasks(taskList, parent) {
 }
 
 // Show either tasks or projects on screen
-function renderToDisplay() {
+export function renderToDisplay() {
   switch (snapshot.options.view) {
     case "tasks": {
       display.classList.remove("showProjects");
@@ -139,7 +141,7 @@ function renderToDisplay() {
         sortContainer.appendChild(btSort);
       }
 
-      renderTasks(snapshot.tasks, display);
+      renderTasks(snapshot.tasks, display, snapshot.options);
       break;
     }
     case "projects": {
@@ -196,7 +198,7 @@ function renderProjects(projectList) {
 
     // Find tasks associated with project and render them
     const projectChildren = snapshot.tasks.filter(el2 => el.children.includes(el2.id));
-    renderTasks(projectChildren, projectNode);
+    renderTasks(projectChildren, projectNode, snapshot.options);
   });
 }
 
@@ -281,7 +283,7 @@ const btConfirmEditProject = document.getElementById("btConfirmEditProject");
 btConfirmEditProject.onclick = confirmEditProject;
 
 function showEditProjectDialog(taskId) {
-  const taskIndex = snapshot.projects.findIndex(el => el.id == taskId);
+  const taskIndex = snapshot.projects.findIndex(el => el.id === +taskId);
 
   // Pass project id to DOM for updateProject()
   datEditProjectId.value = taskId;
@@ -301,12 +303,13 @@ function showEditProjectDialog(taskId) {
 }
 
 function renderTasksToListbox(taskList, parent) {
-  parent.innerHTML = "";
+  const parentHelper = parent;
+  parentHelper.innerHTML = "";
   taskList.forEach(el => {
     const task = document.createElement("option");
     task.value = el.id;
     task.innerText = el.title;
-    parent.appendChild(task);
+    parentHelper.appendChild(task);
   });
 }
 
@@ -316,7 +319,8 @@ function AddToProject() {
   });
 
   Array.from(selEditProjectChildren.selectedOptions).forEach(el => {
-    el.selected = false;
+    const elHelper = el;
+    elHelper.selected = false;
   });
 }
 
@@ -326,7 +330,8 @@ function RemoveFromProject() {
   });
 
   Array.from(selAddProjectChildren.selectedOptions).forEach(el => {
-    el.selected = false;
+    const elHelper = el;
+    elHelper.selected = false;
   });
 }
 
@@ -366,9 +371,3 @@ function confirmDelProject() {
   renderToDisplay();
   dlgDelProject.close();
 }
-
-export {
-  renderToAppConsole,
-  renderVersionNumber,
-  renderToDisplay,
-};

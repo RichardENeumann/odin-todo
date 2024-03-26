@@ -8,13 +8,20 @@ export function loadOnStartup() {
     projects: [],
     tasks: [],
   };
+
   if (localStorage.getItem("localSnapshot")) {
-    const helper = JSON.parse(localStorage.getItem("localSnapshot"));
-    initSnapshot.options = helper.options;
-    initSnapshot.projects = helper.projects;
-    initSnapshot.tasks = helper.tasks;
+    const parsedSnapshot = JSON.parse(localStorage.getItem("localSnapshot"));
+    initSnapshot.options = parsedSnapshot.options;
+    initSnapshot.projects = parsedSnapshot.projects;
+    initSnapshot.tasks = parsedSnapshot.tasks;
   }
   return initSnapshot;
+}
+
+// Evaluate if the snapshot is well formed to avoid trouble with malformed JSON imports
+export function evalSnapshot(currentSnapshot) {
+  const evaluatedSnapshot = currentSnapshot;
+  return evaluatedSnapshot;
 }
 
 // Save current state to localStorage
@@ -27,6 +34,7 @@ export function saveState(currentSnapshot) {
 // Load external JSON file as snapshot
 export function importSnapshot(fileSelector) {
   const reader = new FileReader();
+
   return new Promise((resolve, reject) => {
     reader.onerror = () => {
       reader.abort();

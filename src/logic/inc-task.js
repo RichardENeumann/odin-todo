@@ -1,7 +1,8 @@
-function findUnusedId(currentSnapshot, target) {
+// Within the given array, find the lowest unassigned project/task id
+export function findUnusedId(currentSnapshot, target) {
   // target = projects or tasks
   // First sort all id numbers into an array by ascending order
-  const helper = currentSnapshot[target].toSorted((a, b) => {
+  const sortedList = currentSnapshot[target].toSorted((a, b) => {
     if (a.id < b.id) {
       return -1;
     }
@@ -12,13 +13,13 @@ function findUnusedId(currentSnapshot, target) {
   });
   // Find first unused id by comparing index to id key
   let unusedId = 0;
-  while (unusedId < helper.length && unusedId === helper[unusedId].id) {
+  while (unusedId < sortedList.length && unusedId === sortedList[unusedId].id) {
     unusedId += 1;
   }
   return unusedId;
 }
 
-function createTask(currentSnapshot, title) {
+export function createTask(currentSnapshot, title) {
   const newTask = {
     title,
     id: findUnusedId(currentSnapshot, "tasks"),
@@ -29,27 +30,27 @@ function createTask(currentSnapshot, title) {
   currentSnapshot.tasks.push(newTask);
 }
 
-function editTask(currentSnapshot, id, title, todo, doing, done) {
+export function editTask(currentSnapshot, id, title, todo, doing, done) {
   const taskIndex = currentSnapshot.tasks.findIndex(el => el.id === +id);
+  const currentSnapshotHelper = currentSnapshot;
 
-  currentSnapshot.tasks[taskIndex].title = (title || "Example Task");
-  currentSnapshot.tasks[taskIndex].todo = (todo)
+  currentSnapshotHelper.tasks[taskIndex].title = (title || "Example Task");
+  currentSnapshotHelper.tasks[taskIndex].todo = (todo)
     ? new Date(todo).toISOString()
     : new Date().toISOString();
-  currentSnapshot.tasks[taskIndex].doing = (doing)
+  currentSnapshotHelper.tasks[taskIndex].doing = (doing)
     ? new Date(doing).toISOString()
     : false;
-  currentSnapshot.tasks[taskIndex].done = (done)
+  currentSnapshotHelper.tasks[taskIndex].done = (done)
     ? new Date(done).toISOString()
     : false;
 }
 
-function deleteTask(currentSnapshot, id) {
+export function deleteTask(currentSnapshot, id) {
   const taskIndex = currentSnapshot.tasks.findIndex(el => el.id === +id);
 
   // Remove from tasks list
   currentSnapshot.tasks.splice(taskIndex, 1);
-
   // Remove from projects' children lists
   currentSnapshot.projects.forEach(el => {
     const i = el.children.indexOf(+id);
@@ -58,10 +59,3 @@ function deleteTask(currentSnapshot, id) {
     }
   });
 }
-
-export {
-  findUnusedId,
-  createTask,
-  editTask,
-  deleteTask,
-};

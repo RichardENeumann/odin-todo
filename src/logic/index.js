@@ -2,7 +2,7 @@ import "../style/main.css";
 import "../style/tablet.css";
 import "../style/desktop.css";
 
-import { 
+import {
   loadOnStartup,
   saveState,
   importSnapshot,

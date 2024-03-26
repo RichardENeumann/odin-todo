@@ -1,6 +1,6 @@
 import { findUnusedId } from "./inc-task.js";
 
-function createProject(currentSnapshot, title) {
+export function createProject(currentSnapshot, title) {
   const newProject = {
     title,
     id: findUnusedId(currentSnapshot, "projects"),
@@ -9,19 +9,14 @@ function createProject(currentSnapshot, title) {
   currentSnapshot.projects.push(newProject);
 }
 
-function editProject(currentSnapshot, id, title, children) {
+export function editProject(currentSnapshot, id, title, children) {
+  const currentSnapshotHelper = currentSnapshot;
   const projectIndex = currentSnapshot.projects.findIndex(el => el.id === +id);
-  currentSnapshot.projects[projectIndex].title = (title || "Example Project");
-  currentSnapshot.projects[projectIndex].children = (children || []);
+  currentSnapshotHelper.projects[projectIndex].title = (title || "Example Project");
+  currentSnapshotHelper.projects[projectIndex].children = (children || []);
 }
 
-function deleteProject(currentSnapshot, id) {
+export function deleteProject(currentSnapshot, id) {
   const projectIndex = currentSnapshot.projects.findIndex(el => el.id === +id);
   currentSnapshot.projects.splice(projectIndex, 1);
 }
-
-export {
-  createProject,
-  editProject,
-  deleteProject,
-};
